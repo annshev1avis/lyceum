@@ -1,4 +1,4 @@
-[![pipeline status](https://gitlab.crja72.ru/django/2024/autumn/course/students/284664-annshevchenkooo-course-1187/badges/master/pipeline.svg)](https://gitlab.crja72.ru/django/2024/autumn/course/students/284664-annshevchenkooo-course-1187/-/commits/master)
+[![pipeline status](https://gitlab.crja72.ru/django/2024/autumn/course/students/284664-annshevchenkooo-course-1187/badges/main/pipeline.svg)](https://gitlab.crja72.ru/django/2024/autumn/course/students/284664-annshevchenkooo-course-1187/-/commits/main)
 # lyceum  
 Краткое описание: учебный проект по изучению Django  
 ---
