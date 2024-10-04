@@ -5,5 +5,5 @@ flake8:
     stage: linting
     image: registry.gitlab.com/pipeline-components/flake8:latest
     script:
-        - pip install -r prod.txt
+        - pip install -r requirements/prod.txt
         - flake8 --verbose .
