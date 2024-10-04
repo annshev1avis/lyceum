@@ -6,4 +6,8 @@ flake8:
     image: registry.gitlab.com/pipeline-components/flake8:latest
     script:
         - pip install -r requirements/prod.txt
+        - pip install pep8-naming
+        - pip install flake8_import_order
+        - pip install flake8-quotes
         - flake8 --verbose .
+        - black --check --diff .
