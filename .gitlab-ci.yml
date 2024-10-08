@@ -19,6 +19,6 @@ black:
 
 django_test:
     stage: testing
-    image: python3.9
+    image: python:3.10
     script:
         - python3 manage.py test
