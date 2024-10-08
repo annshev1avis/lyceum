@@ -1,17 +1,16 @@
 import os
 from pathlib import Path
 
-import environ
+import dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env()
-environ.Env.read_env()
+dotenv.load_dotenv()
 
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "fake_key")
 
-DEBUG = env("DEBUG")
+DEBUG = os.getenv("DEBUG", "true").lower() in ("true", "yes", "1", "y", "t")
 
 ALLOWED_HOSTS = []
 
