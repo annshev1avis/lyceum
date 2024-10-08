@@ -10,7 +10,13 @@ dotenv.load_dotenv()
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fake_key")
 
-DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in ("true", "yes", "1", "y", "t")
+DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in (
+    "true",
+    "yes",
+    "1",
+    "y",
+    "t",
+)
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split()
 
