@@ -5,7 +5,6 @@ flake8:
     stage: linting
     image: registry.gitlab.com/pipeline-components/flake8:latest
     script:
-        - pip install -r requirements/prod.txt
         - pip install pep8-naming
         - pip install flake8_import_order
         - pip install flake8-quotes
@@ -15,5 +14,4 @@ black:
   stage: linting
   image: registry.gitlab.com/pipeline-components/black:latest
   script:
-      - pip install -r requirements/prod.txt
       - black --check --diff .
