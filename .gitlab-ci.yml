@@ -1,5 +1,6 @@
 stages:
-  - linting
+    - linting
+    - testing
 
 flake8:
     stage: linting
@@ -11,7 +12,13 @@ flake8:
         - flake8 --verbose .
 
 black:
-  stage: linting
-  image: registry.gitlab.com/pipeline-components/black:latest
-  script:
-      - black --check --diff .
+    stage: linting
+    image: registry.gitlab.com/pipeline-components/black:latest
+    script:
+        - black --check --diff .
+
+django_test:
+    stage: testing
+    image: python3.9
+    script:
+        - python3 manage.py test
