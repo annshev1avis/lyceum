@@ -8,13 +8,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv.load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY", "fake_key")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fake_key")
 
-DEBUG = os.getenv("DEBUG", "true").lower() in ("true", "yes", "1", "y", "t")
+DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in ("true", "yes", "1", "y", "t")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split()
 
 INSTALLED_APPS = [
+    "homepage",
+    "catalog",
+    "about",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
