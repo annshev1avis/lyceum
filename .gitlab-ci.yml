@@ -24,3 +24,6 @@ django_test:
         - pip install -r requirements/test.txt
         - cd lyceum
         - python3 manage.py test
+    only:
+        - merge_requests
+        - pushes
