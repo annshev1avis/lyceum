@@ -10,7 +10,7 @@ dotenv.load_dotenv()
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fake_key")
 
-DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in (
+DEBUG = os.getenv("DJANGO_DEBUG", "false").lower() in (
     "true",
     "yes",
     "1",
@@ -18,19 +18,18 @@ DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in (
     "t",
 )
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split()
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split()
 
 INSTALLED_APPS = [
-    "homepage",
-    "catalog",
-    "about",
-    "debug_toolbar",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "homepage",
+    "catalog",
+    "about",
 ]
 
 MIDDLEWARE = [
@@ -41,12 +40,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+if DEBUG is True:
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+    INSTALLED_APPS += ("debug_toolbar",)
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
 
 ROOT_URLCONF = "lyceum.urls"
 
