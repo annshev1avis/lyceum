@@ -10,8 +10,8 @@ dotenv.load_dotenv()
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fake_key")
 
-debug_value = os.getenv("DJANGO_DEBUG").lower()
-DEBUG = debug_value in (
+debug_str_value = str(os.getenv("DJANGO_DEBUG"))
+DEBUG = debug_str_value.lower() in (
     "true",
     "yes",
     "1",
