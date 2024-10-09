@@ -10,8 +10,7 @@ def item_detail(request, detail):
 
 
 def echo_num(request, num):
+    print(num)
+    num = int(num)
     return HttpResponse(str(num))
 
-
-def month_and_num(request, month, num):
-    return HttpResponse(str(num))

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from django.test import Client, TestCase
 
 
@@ -10,6 +12,6 @@ class HomepageTests(TestCase):
 
     def test_teapot_endpoint(self):
         response = Client().get("/coffee/")
-        self.assertEqual(response.status_code, 418)
+        self.assertEqual(response.status_code, HTTPStatus.IM_A_TEAPOT)
         str_content = str(response.content, encoding="utf-8")
         self.assertEqual(str_content, "Я чайник")
