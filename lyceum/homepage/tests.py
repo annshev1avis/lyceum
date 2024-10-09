@@ -13,4 +13,3 @@ class HomepageTests(TestCase):
         self.assertEqual(response.status_code, 418)
         str_content = str(response.content, encoding="utf-8")
         self.assertEqual(str_content, "Я чайник")
-
