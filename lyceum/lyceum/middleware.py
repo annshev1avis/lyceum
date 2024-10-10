@@ -6,6 +6,8 @@ RUSSIAN_LETTERS = "абвгдеёжзийклмнопрстуфхцчшщъыь�
 
 
 def reverse_rus_word(word):
+    if word == "":
+        return word
     return word[::-1] if word[0].lower() in RUSSIAN_LETTERS else word
 
 
@@ -23,7 +25,7 @@ class ReverseWordsMiddleware:
         if (
             settings.ALLOW_REVERSE or settings.ALLOW_REVERSE is None
         ) and ReverseWordsMiddleware.count % REVERSE_TIME == 0:
-            words = response.content.decode().split(" ")
+            words = response.content.decode().split()
             response.content = " ".join(map(reverse_rus_word, words))
             ReverseWordsMiddleware.count = 0
 
