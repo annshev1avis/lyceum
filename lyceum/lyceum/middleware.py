@@ -19,7 +19,9 @@ class ReverseWordsMiddleware:
 
         response = self.get_response(request)
 
-        if settings.ALLOW_REVERSE and self.count % REVERSE_TIME == 0:
+        if (
+            settings.ALLOW_REVERSE or settings.ALLOW_REVERSE is None
+        ) and self.count % REVERSE_TIME == 0:
             words = response.content.decode().split(" ")
             response.content = " ".join(map(reverse_rus_word, words))
             self.count = 0

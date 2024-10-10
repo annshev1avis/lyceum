@@ -1,4 +1,4 @@
-from django.test import Client, TestCase, override_settings
+from django.test import Client, override_settings, TestCase
 
 
 class ReverseWordsMiddlewareTest(TestCase):
@@ -24,3 +24,13 @@ class ReverseWordsMiddlewareTest(TestCase):
                 "Я чайник",
                 "Не сработало отключение ReverseWordsMiddleware",
             )
+
+    @override_settings(ALLOW_REVERSE=None)
+    def test_default_reversing_enabled(self):
+        client = Client()
+        for i in range(9):
+            response = client.get("/coffee/")
+            self.assertEqual(response.content.decode(), "Я чайник")
+
+        response = client.get("/coffee/")
+        self.assertEqual(response.content.decode(), "Я кинйач")
