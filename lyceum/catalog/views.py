@@ -10,6 +10,5 @@ def item_detail(request, detail):
 
 
 def echo_num(request, num):
-    print(num)
     num = int(num)
     return HttpResponse(str(num))

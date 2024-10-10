@@ -50,6 +50,17 @@ if DEBUG is True:
         "127.0.0.1",
     ]
 
+ALLOW_REVERSE = str(os.getenv("DJANGO_ALLOW_REVERSE")).lower() in (
+    "none",
+    "true",
+    "yes",
+    "1",
+    "y",
+)
+
+if ALLOW_REVERSE:
+    MIDDLEWARE += ("lyceum.middleware.ReverseWordsMiddleware",)
+
 ROOT_URLCONF = "lyceum.urls"
 
 TEMPLATES = [
