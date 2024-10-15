@@ -1,7 +1,6 @@
+import core.models
 import django.db.models
 from django.core.exceptions import ValidationError
-
-from ..core import models
 
 
 def is_int_1_32767(value):
@@ -24,7 +23,7 @@ def contains_excellent_word(text):
     )
 
 
-class Item(models.CoreModel):
+class Item(core.models.CoreModel):
     text = django.db.models.TextField(
         "Текст", validators=[contains_excellent_word]
     )
@@ -46,7 +45,7 @@ class Item(models.CoreModel):
         return f"{self.name}"
 
 
-class Tag(models.CoreModel):
+class Tag(core.models.CoreModel):
     slug = django.db.models.SlugField("Слаг", max_length=200, unique=True)
 
     class Meta:
@@ -57,7 +56,7 @@ class Tag(models.CoreModel):
         return f"{self.name}"
 
 
-class Category(models.CoreModel):
+class Category(core.models.CoreModel):
     slug = django.db.models.SlugField("Слаг", max_length=200, unique=True)
     weight = django.db.models.IntegerField(
         "Вес", default=100, validators=[is_int_1_32767]
