@@ -51,8 +51,9 @@ if DEBUG is True:
         "127.0.0.1",
     ]
 
-ALLOW_REVERSE = str(os.getenv("DJANGO_ALLOW_REVERSE",
-                              default=True)).lower() in (
+ALLOW_REVERSE = str(
+    os.getenv("DJANGO_ALLOW_REVERSE", default=True)
+).lower() in (
     "true",
     "yes",
     "1",

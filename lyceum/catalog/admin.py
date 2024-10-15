@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-import catalog.models
+from . import models
 
 
 class ItemAdmin(admin.ModelAdmin):
@@ -10,6 +10,6 @@ class ItemAdmin(admin.ModelAdmin):
     filter_horizontal = ("tags",)
 
 
-admin.site.register(catalog.models.Item, ItemAdmin)
-admin.site.register(catalog.models.Tag)
-admin.site.register(catalog.models.Category)
+admin.site.register(models.Item, ItemAdmin)
+admin.site.register(models.Tag)
+admin.site.register(models.Category)
