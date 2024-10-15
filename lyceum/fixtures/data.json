@@ -1,0 +1,134 @@
+[
+{
+    "model": "catalog.item",
+    "pk": 1,
+    "fields": {
+        "name": "Карманный справочник по python",
+        "is_published": true,
+        "text": "превосходно написанная книга",
+        "category": 1,
+        "tags": []
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 2,
+    "fields": {
+        "name": "Гарри Поттер и философский камень",
+        "is_published": true,
+        "text": "превосходно захватывающий роман",
+        "category": 1,
+        "tags": [
+            2,
+            3,
+            5
+        ]
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 3,
+    "fields": {
+        "name": "Плов",
+        "is_published": true,
+        "text": "роскошно приготовленный рис с мясом",
+        "category": 2,
+        "tags": [
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 4,
+    "fields": {
+        "name": "Имбирные пряники",
+        "is_published": true,
+        "text": "роскошно оформленные пряники в виде енотиков (ни один енот не пострадал)",
+        "category": 2,
+        "tags": [
+            2,
+            5
+        ]
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 5,
+    "fields": {
+        "name": "Геометрия 7-9 класс",
+        "is_published": true,
+        "text": "единственный минус - книга на любителя, а в остальном превосходно",
+        "category": 1,
+        "tags": [
+            3
+        ]
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Python",
+        "is_published": true,
+        "slug": "python"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 2,
+    "fields": {
+        "name": "Новогоднее",
+        "is_published": true,
+        "slug": "new_year"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 3,
+    "fields": {
+        "name": "Фэнтези",
+        "is_published": true,
+        "slug": "fantasy"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Узбекское",
+        "is_published": true,
+        "slug": "uzbek"
+    }
+},
+{
+    "model": "catalog.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Хороший подарок",
+        "is_published": true,
+        "slug": "good_gift"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Книги",
+        "is_published": true,
+        "slug": "books",
+        "weight": 10
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Еда",
+        "is_published": true,
+        "slug": "food",
+        "weight": 100
+    }
+}
+]

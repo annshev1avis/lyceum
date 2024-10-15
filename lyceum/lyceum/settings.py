@@ -1,10 +1,10 @@
 import os
-from pathlib import Path
+import pathlib
 
 import dotenv
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
 dotenv.load_dotenv()
 
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "catalog.apps.CatalogConfig",
     "about.apps.AboutConfig",
+    "core.apps.CoreConfig",
 ]
 
 MIDDLEWARE = [
@@ -50,8 +51,8 @@ if DEBUG is True:
         "127.0.0.1",
     ]
 
-ALLOW_REVERSE = str(os.getenv("DJANGO_ALLOW_REVERSE")).lower() in (
-    "none",
+ALLOW_REVERSE = str(os.getenv("DJANGO_ALLOW_REVERSE",
+                              default=True)).lower() in (
     "true",
     "yes",
     "1",
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "UTC"
 
@@ -118,3 +119,5 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+DEFAULT_CHARSET = "utf-8"
