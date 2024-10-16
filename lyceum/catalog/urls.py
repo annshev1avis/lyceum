@@ -1,12 +1,13 @@
-from django.urls import path, re_path, register_converter
+import django.urls
 
-from . import converters, views
+import catalog.converters
+import catalog.views
 
-register_converter(converters.PositiveInt, "positive_int")
+django.urls.register_converter(catalog.converters.PositiveInt, "positive_int")
 
 urlpatterns = [
-    path("", views.item_list),
-    path("<int:detail>/", views.item_detail),
-    re_path(r"re/(0*[1-9][0-9]*)/", views.echo_num),
-    path("converter/<positive_int:num>/", views.echo_num),
+    django.urls.path("", catalog.views.item_list),
+    django.urls.path("<int:detail>/", catalog.views.item_detail),
+    django.urls.re_path(r"re/(0*[1-9][0-9]*)/", catalog.views.echo_num),
+    django.urls.path("converter/<positive_int:num>/", catalog.views.echo_num),
 ]

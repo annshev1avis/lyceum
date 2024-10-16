@@ -1,10 +1,10 @@
-from django.db import models
+import django.db
 
 
-class CoreModel(models.Model):
-    id = models.BigAutoField("id", primary_key=True)
-    name = models.CharField("Название", max_length=150)
-    is_published = models.BooleanField("Опубликовано", default=True)
+class CoreModel(django.db.models.Model):
+    id = django.db.models.BigAutoField("id", primary_key=True)
+    name = django.db.models.CharField("Название", max_length=150)
+    is_published = django.db.models.BooleanField("Опубликовано", default=True)
 
     class Meta:
         abstract = True

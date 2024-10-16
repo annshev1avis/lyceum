@@ -1,5 +1,5 @@
-from django.http import HttpResponse
+import django.http
 
 
 def description(request):
-    return HttpResponse("О проекте")
+    return django.http.HttpResponse("О проекте")

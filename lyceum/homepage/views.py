@@ -1,9 +1,14 @@
-from django.http import HttpResponse
+import http
+
+import django.http
 
 
 def home(request):
-    return HttpResponse("Главная")
+    return django.http.HttpResponse("Главная")
 
 
 def teapot(request):
-    return HttpResponse("Я чайник", status=418)
+    return django.http.HttpResponse(
+        "Я чайник",
+        status=http.HTTPStatus.IM_A_TEAPOT,
+    )

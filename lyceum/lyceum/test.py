@@ -1,20 +1,20 @@
-from django.test import Client, override_settings, TestCase
+import django.test
 
 
-class ReverseWordsMiddlewareTest(TestCase):
+class ReverseWordsMiddlewareTest(django.test.TestCase):
 
-    @override_settings(ALLOW_REVERSE=True)
+    @django.test.override_settings(ALLOW_REVERSE=True)
     def test_reverse_coffee_endpoint(self):
-        client = Client()
+        client = django.test.Client()
         results = []
         for i in range(10):
             response = client.get("/coffee/")
             results.append(response.content.decode())
         self.assertEqual(results.count("Я кинйач"), 1)
 
-    @override_settings(ALLOW_REVERSE=False)
+    @django.test.override_settings(ALLOW_REVERSE=False)
     def test_disable_reversing(self):
-        client = Client()
+        client = django.test.Client()
         results = []
         for i in range(10):
             response = client.get("/coffee/")
@@ -25,9 +25,9 @@ class ReverseWordsMiddlewareTest(TestCase):
             "Не сработало отключение ReverseWordsMiddleware",
         )
 
-    @override_settings(ALLOW_REVERSE=None)
+    @django.test.override_settings(ALLOW_REVERSE=None)
     def test_reverse_coffee_endpoint_default(self):
-        client = Client()
+        client = django.test.Client()
         results = []
         for i in range(10):
             response = client.get("/coffee/")

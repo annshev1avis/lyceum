@@ -3,7 +3,6 @@ import pathlib
 
 import dotenv
 
-
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
 dotenv.load_dotenv()
@@ -52,7 +51,7 @@ if DEBUG is True:
     ]
 
 ALLOW_REVERSE = str(
-    os.getenv("DJANGO_ALLOW_REVERSE", default=True)
+    os.getenv("DJANGO_ALLOW_REVERSE", default=True),
 ).lower() in (
     "true",
     "yes",
@@ -87,7 +86,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
 }
 
 AUTH_PASSWORD_VALIDATORS = [

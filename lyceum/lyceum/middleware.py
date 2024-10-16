@@ -1,5 +1,4 @@
-from django.conf import settings
-
+import django.conf
 
 REVERSE_TIME = 10
 RUSSIAN_LETTERS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
@@ -23,7 +22,8 @@ class ReverseWordsMiddleware:
         response = self.get_response(request)
 
         if (
-            settings.ALLOW_REVERSE or settings.ALLOW_REVERSE is None
+            django.conf.settings.ALLOW_REVERSE
+            or django.conf.settings.ALLOW_REVERSE is None
         ) and ReverseWordsMiddleware.count % REVERSE_TIME == 0:
             words = response.content.decode().split()
             response.content = " ".join(map(reverse_rus_word, words))
