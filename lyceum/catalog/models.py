@@ -29,51 +29,52 @@ def contains_excellent_word(s1):
 
 class Item(core.models.CoreModel):
     text = django.db.models.TextField(
-        "Текст",
+        "текст",
         validators=[contains_excellent_word],
+        help_text="Опишите товар",
     )
     category = django.db.models.ForeignKey(
         "Category",
-        on_delete=django.db.models.PROTECT,
+        on_delete=django.db.models.CASCADE,
         related_name="items",
-        verbose_name="Категория",
+        verbose_name="категория",
     )
     tags = django.db.models.ManyToManyField(
         "Tag",
         related_name="items",
-        verbose_name="Теги",
+        verbose_name="теги",
     )
 
     class Meta:
-        verbose_name = "Товар"
-        verbose_name_plural = "Товары"
+        verbose_name = "товар"
+        verbose_name_plural = "товары"
 
     def __str__(self):
         return f"{self.name}"
 
 
 class Tag(core.models.CoreModel):
-    slug = django.db.models.SlugField("Слаг", max_length=200, unique=True)
+    slug = django.db.models.SlugField("слаг", max_length=200, unique=True)
 
     class Meta:
-        verbose_name = "Тег"
-        verbose_name_plural = "Теги"
+        verbose_name = "тег"
+        verbose_name_plural = "теги"
 
     def __str__(self):
         return f"{self.name}"
 
 
 class Category(core.models.CoreModel):
-    slug = django.db.models.SlugField("Слаг", max_length=200, unique=True)
+    slug = django.db.models.SlugField("слаг", max_length=200, unique=True)
     weight = django.db.models.IntegerField(
-        "Вес",
+        "вес",
         default=100,
         validators=[is_int_1_32767],
     )
 
     class Meta:
-        verbose_name = "Категория"
-        verbose_name_plural = "Категории"
+        verbose_name = "категория"
+        verbose_name_plural = "категории"
 
     def __str__(self):
         return f"{self.name}"

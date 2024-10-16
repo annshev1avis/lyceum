@@ -1,15 +1,18 @@
-import django.contrib.admin
+from django.contrib import admin
 
 import catalog.models
 
 
-class ItemAdmin(django.contrib.admin.ModelAdmin):
-    list_display = ["name", "is_published"]
-    list_editable = ["is_published"]
-    list_display_links = ["name"]
-    filter_horizontal = ("tags",)
+@admin.register(catalog.models.Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = [
+        catalog.models.Item.name.field.name,
+        catalog.models.Item.is_published.field.name,
+    ]
+    list_editable = [catalog.models.Item.is_published.field.name]
+    list_display_links = [catalog.models.Item.name.field.name]
+    filter_horizontal = (catalog.models.Item.tags.field.name,)
 
 
-django.contrib.admin.site.register(catalog.models.Item, ItemAdmin)
-django.contrib.admin.site.register(catalog.models.Tag)
-django.contrib.admin.site.register(catalog.models.Category)
+admin.site.register(catalog.models.Tag)
+admin.site.register(catalog.models.Category)
