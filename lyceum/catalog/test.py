@@ -2,6 +2,7 @@ import django.core.exceptions
 import django.test
 
 import catalog.models
+from catalog.validators import ValidateMustContain
 
 
 class CatalogTests(django.test.TestCase):
@@ -166,28 +167,31 @@ class ModelsTests(django.test.TestCase):
         self.assertEqual(initial_amount, catalog.models.Item.objects.count())
 
 
-class ExcellentWordsValidationTests(django.test.TestCase):
+class ValidateMustContainTests(django.test.TestCase):
+    def setUp(self):
+        self.validator = ValidateMustContain("превосходно", "роскошно")
+
     def test_positive_1(self):
         self.assertEqual(
-            catalog.models.contains_excellent_word("превосходно"),
+            self.validator("превосходно"),
             None,
         )
 
     def test_positive_2(self):
         self.assertEqual(
-            catalog.models.contains_excellent_word("роскошно"),
+            self.validator("роскошно"),
             None,
         )
 
     def test_positive_with_punctuation(self):
         self.assertEqual(
-            catalog.models.contains_excellent_word("(роскошно!)..."),
+            self.validator("(роскошно!)..."),
             None,
         )
 
     def test_positive_several_words(self):
         self.assertEqual(
-            catalog.models.contains_excellent_word(
+            self.validator(
                 "роскошно написанная книга",
             ),
             None,
@@ -195,20 +199,20 @@ class ExcellentWordsValidationTests(django.test.TestCase):
 
     def test_negative_unfinished_word(self):
         with self.assertRaises(django.core.exceptions.ValidationError):
-            catalog.models.contains_excellent_word("превосходн")
+            self.validator("превосходн")
 
     def test_negative_several_words(self):
         with self.assertRaises(django.core.exceptions.ValidationError):
-            catalog.models.contains_excellent_word("обычно написанная книга")
+            self.validator("обычно написанная книга")
 
     def test_negative_with_punctuation_but_not_word(self):
         with self.assertRaises(django.core.exceptions.ValidationError):
-            catalog.models.contains_excellent_word("лишнее(роскошно!)...")
+            self.validator("лишнее(роскошно!)...")
 
     def test_negative_empty_string(self):
         with self.assertRaises(django.core.exceptions.ValidationError):
-            catalog.models.contains_excellent_word("")
+            self.validator("")
 
     def test_negative_includes_word_substring_but_not_word(self):
         with self.assertRaises(django.core.exceptions.ValidationError):
-            catalog.models.contains_excellent_word("нероскошно")
+            self.validator("нероскошно")

@@ -1,36 +1,16 @@
-import re
-
 import django.core.exceptions
 import django.db.models
 
+import catalog.validators
 import core.models
-
-
-def is_int_1_32767(value):
-    if not 1 <= value <= 32767:
-        raise django.core.exceptions.ValidationError(
-            "Число должно быть целым и принадлежать промежутку от 1 до 32767",
-        )
-
-
-def contains_excellent_word(s1):
-    s1 = " " + s1.lower() + " "
-    excellent_words = re.findall(
-        r" [^\da-zа-я]*(?:роскошно|превосходно)[^\da-zа-я]* ",
-        s1,
-        re.IGNORECASE,
-    )
-
-    if len(excellent_words) == 0:
-        raise django.core.exceptions.ValidationError(
-            "Строка должна содержать слово 'роскошно' или 'превосходно'",
-        )
 
 
 class Item(core.models.CoreModel):
     text = django.db.models.TextField(
         "текст",
-        validators=[contains_excellent_word],
+        validators=[
+            catalog.validators.ValidateMustContain("превосходно", "роскошно"),
+        ],
         help_text="Опишите товар",
     )
     category = django.db.models.ForeignKey(
@@ -84,7 +64,7 @@ class Category(core.models.CoreModel):
     weight = django.db.models.IntegerField(
         "вес",
         default=100,
-        validators=[is_int_1_32767],
+        validators=[catalog.validators.is_int_1_32767],
         help_text="Введите число от 1 до 32767",
     )
 

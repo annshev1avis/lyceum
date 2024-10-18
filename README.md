@@ -18,6 +18,9 @@ venv_name - имя виртуального окружения
 ```DJANGO_SECRET_KEY="your_secret_key"  DJANDO_DEBUG=True  DJANGO_ALLOWED_HOSTS="127.0.0.1 128.0.0.1"```
 #### 6. Находясь в корневой директории (внешняя lyceum), выполнить следующую команду
 Для linux/macOS: ```python manage.py runserver```  
-Для Windows: ```py manage.py runserver```  
+Для Windows: ```py manage.py runserver```
+  
+#### Примечание:  
+в корне проекта можно найти файл ER.jpg, в котором изображена актуальная схема базы данных  
 ---
 Кем создан: Анна Шевченко 
