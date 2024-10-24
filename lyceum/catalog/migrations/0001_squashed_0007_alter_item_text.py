@@ -3,6 +3,7 @@
 import catalog.validators
 from django.db import migrations, models
 import django.db.models.deletion
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Migration(migrations.Migration):
@@ -62,7 +63,7 @@ class Migration(migrations.Migration):
                     models.IntegerField(
                         default=100,
                         help_text="Введите число от 1 до 32767",
-                        validators=[catalog.validators.is_int_1_32767],
+                        validators=[MaxValueValidator, MinValueValidator],
                         verbose_name="вес",
                     ),
                 ),

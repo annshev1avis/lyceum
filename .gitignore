@@ -189,3 +189,6 @@ Temporary Items
 .apdisk
 
 *.icloud
+
+# media
+*/media/

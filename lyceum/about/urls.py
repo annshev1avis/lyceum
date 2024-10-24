@@ -3,4 +3,6 @@ import django.urls
 import about.views
 
 
-urlpatterns = [django.urls.path("", about.views.description)]
+app_name = "about"
+
+urlpatterns = [django.urls.path("", about.views.description, name="about")]

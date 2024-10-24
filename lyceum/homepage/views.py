@@ -1,14 +1,28 @@
 import http
 
-import django.http
+from django.http import HttpResponse
+from django.shortcuts import render
+
+
+class MyClass:
+    def __str__(self):
+        return "MyClass"
 
 
 def home(request):
-    return django.http.HttpResponse("Главная")
+    template = "homepage/main.html"
+    context = {
+        "goods": [
+            {"name": "енот 1", "description": "добрый"},
+            {"name": "енот 2", "description": "дружелюбный"},
+            {"name": "енот 3", "description": "грустный"},
+        ],
+    }
+    return render(request, template, context)
 
 
 def teapot(request):
-    return django.http.HttpResponse(
+    return HttpResponse(
         "Я чайник",
         status=http.HTTPStatus.IM_A_TEAPOT,
     )

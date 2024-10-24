@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Интернет-магазин енотов</title>
+    <link rel="icon" href="{% static "img/favicon.ico" %}" type="image">
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/styles.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="wrapper">
+      {% include "includes/header.html" %}
+
+      <main class="container">
+        {% block content %}<h1>Контент страницы недоступен :(</h1>{% endblock %}
+        <div class="row" >
+          <img src="{% static "img/racoon.jpg" %}" class="col-9 col-md-6 col-xl-3 pt-5">
+        </div>
+      </main>
+      
+      {% include "includes/footer.html" %}
+    </div>
+  </body>
+
+</html>

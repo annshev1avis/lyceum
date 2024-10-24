@@ -4,13 +4,6 @@ from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
 
-def is_int_1_32767(value):
-    if not 1 <= value <= 32767:
-        raise ValidationError(
-            "Число должно быть целым и принадлежать промежутку от 1 до 32767",
-        )
-
-
 @deconstructible
 class ValidateMustContain:
     def __init__(self, *words):

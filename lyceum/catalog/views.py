@@ -1,12 +1,23 @@
 import django.http
+from django.shortcuts import render
 
 
 def item_list(request):
-    return django.http.HttpResponse("Список элементов")
+    template = "catalog/item_list.html"
+    context = {
+        "goods": [
+            {"name": "енот 1", "description": "добрый"},
+            {"name": "енот 2", "description": "дружелюбный"},
+            {"name": "енот 3", "description": "грустный"},
+        ],
+    }
+    return render(request, template, context)
 
 
 def item_detail(request, detail):
-    return django.http.HttpResponse("Подробно элемент")
+    template = "catalog/item.html"
+    context = {"name": f"енот {detail}"}
+    return render(request, template, context)
 
 
 def echo_num(request, num):
