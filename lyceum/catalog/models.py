@@ -78,7 +78,9 @@ class Category(core.models.CoreModel):
 
 class MainImage(core.models.ImageModel):
     item = models.OneToOneField(
-        Item, on_delete=models.CASCADE, related_name="main_image",
+        Item,
+        on_delete=models.CASCADE,
+        related_name="main_image",
     )
 
     class Meta:
@@ -88,7 +90,9 @@ class MainImage(core.models.ImageModel):
 
 class GalleryImage(core.models.ImageModel):
     item = models.ForeignKey(
-        Item, on_delete=models.CASCADE, related_name="images",
+        Item,
+        on_delete=models.CASCADE,
+        related_name="images",
     )
 
     class Meta:
