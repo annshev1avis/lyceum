@@ -1,17 +1,18 @@
 import http
 
 import django.test
+from django.urls import reverse
 
 __all__ = ["HomepageTests"]
 
 
 class HomepageTests(django.test.TestCase):
     def test_homepage_endpoint(self):
-        response = django.test.Client().get("/")
+        response = django.test.Client().get(reverse("homepage:homepage"))
         self.assertEqual(response.status_code, 200)
 
     def test_teapot_endpoint(self):
-        response = django.test.Client().get("/coffee/")
+        response = django.test.Client().get(reverse("homepage:coffee"))
         self.assertEqual(response.status_code, http.HTTPStatus.IM_A_TEAPOT)
         str_content = str(response.content, encoding="utf-8")
         self.assertEqual(str_content, "Я чайник")
