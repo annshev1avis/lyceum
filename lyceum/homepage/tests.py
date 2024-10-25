@@ -2,6 +2,8 @@ import http
 
 import django.test
 
+__all__ = ["HomepageTests"]
+
 
 class HomepageTests(django.test.TestCase):
     def test_homepage_endpoint(self):

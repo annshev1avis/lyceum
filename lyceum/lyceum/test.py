@@ -1,5 +1,7 @@
 import django.test
 
+__all__ = ["ReverseWordsMiddlewareTest"]
+
 
 class ReverseWordsMiddlewareTest(django.test.TestCase):
 

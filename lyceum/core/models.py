@@ -2,9 +2,10 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from sorl.thumbnail import get_thumbnail
 
+__all__ = ["CoreModel", "ImageModel"]
+
 
 class CoreModel(models.Model):
-    id = models.BigAutoField("id", primary_key=True)
     name = models.CharField(
         "название",
         max_length=150,

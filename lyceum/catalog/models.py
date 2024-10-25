@@ -4,6 +4,8 @@ from django.db import models
 import catalog.validators
 import core.models
 
+__all__ = ["Category", "GalleryImage", "Item", "MainImage", "Tag"]
+
 
 class Item(core.models.CoreModel):
     text = models.TextField(

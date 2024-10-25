@@ -1,5 +1,8 @@
 import django.conf
 
+__all__ = ["ReverseWordsMiddleware", "reverse_rus_word"]
+
+
 REVERSE_TIME = 10
 RUSSIAN_LETTERS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 

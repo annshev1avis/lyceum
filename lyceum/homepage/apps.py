@@ -1,5 +1,7 @@
 import django.apps
 
+__all__ = ["HomepageConfig"]
+
 
 class HomepageConfig(django.apps.AppConfig):
     default_auto_field = "django.db.models.BigAutoField"

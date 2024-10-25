@@ -3,6 +3,8 @@ from django.test import TestCase
 
 import catalog.models
 
+__all__ = ["ModelsTests"]
+
 
 class ModelsTests(TestCase):
     fixtures = ["fixtures/data.json"]

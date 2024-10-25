@@ -2,6 +2,8 @@
 
 from django.db import migrations
 
+__all__ = ["Migration"]
+
 
 class Migration(migrations.Migration):
 

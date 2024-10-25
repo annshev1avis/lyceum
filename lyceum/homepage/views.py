@@ -3,6 +3,8 @@ import http
 from django.http import HttpResponse
 from django.shortcuts import render
 
+__all__ = ["MyClass", "home", "teapot"]
+
 
 class MyClass:
     def __str__(self):

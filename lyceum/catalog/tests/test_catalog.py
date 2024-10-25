@@ -1,6 +1,8 @@
 import django.core.exceptions
 import django.test
 
+__all__ = ["CatalogTests"]
+
 
 class CatalogTests(django.test.TestCase):
     def test_item_list(self):

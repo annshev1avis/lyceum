@@ -2,6 +2,8 @@ from django.contrib import admin
 
 import catalog.models
 
+__all__ = ["GalleryImagesInline", "ItemAdmin", "MainImageInline"]
+
 
 class MainImageInline(admin.TabularInline):
     model = catalog.models.MainImage

@@ -1,3 +1,6 @@
+__all__ = ["PositiveInt"]
+
+
 class PositiveInt:
     regex = r"0*[1-9][0-9]*"
 

@@ -1,5 +1,7 @@
 import django.apps
 
+__all__ = ["CoreConfig"]
+
 
 class CoreConfig(django.apps.AppConfig):
     default_auto_field = "django.db.models.BigAutoField"

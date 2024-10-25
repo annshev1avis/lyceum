@@ -1,5 +1,7 @@
 import django.test
 
+__all__ = ["AboutTests"]
+
 
 class AboutTests(django.test.TestCase):
     def test_about(self):

@@ -3,6 +3,8 @@ from django.test import TestCase
 
 from catalog.validators import ValidateMustContain
 
+__all__ = ["ValidateMustContainTests"]
+
 
 class ValidateMustContainTests(TestCase):
     def setUp(self):

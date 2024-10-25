@@ -1,6 +1,8 @@
 import django.http
 from django.shortcuts import render
 
+__all__ = ["echo_num", "item_detail", "item_list"]
+
 
 def item_list(request):
     template = "catalog/item_list.html"
