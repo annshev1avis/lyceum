@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "core.apps.CoreConfig",
     "sorl.thumbnail",
-    "django_dump_load_utf8",
+    # "django_dump_load_utf8",
     "django_cleanup.apps.CleanupConfig",
 ]
 
