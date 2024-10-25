@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 import django.contrib
 import django.urls
 
@@ -16,4 +18,8 @@ if lyceum.settings.DEBUG:
             "__debug__/",
             django.urls.include("debug_toolbar.urls"),
         ),
+    )
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
     )

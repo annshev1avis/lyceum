@@ -55,11 +55,11 @@
 },
 {
     "model": "catalog.item",
-    "pk": 5,
+    "pk": 6,
     "fields": {
         "name": "Геометрия 7-9 класс",
         "is_published": true,
-        "text": "единственный минус - книга на любителя, а в остальном превосходно",
+        "text": "превосходно",
         "category": 1,
         "tags": [
             3
@@ -129,6 +129,22 @@
         "is_published": true,
         "slug": "food",
         "weight": 100
+    }
+},
+{
+    "model": "catalog.mainimage",
+    "pk": 2,
+    "fields": {
+        "image": "catalog/geometry.jpg",
+        "item": 6
+    }
+},
+{
+    "model": "catalog.galleryimage",
+    "pk": 2,
+    "fields": {
+        "image": "catalog/geometry_additional.JPG",
+        "item": 6
     }
 }
 ]

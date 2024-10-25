@@ -1,7 +1,5 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.utils.safestring import mark_safe
-from sorl.thumbnail import get_thumbnail
 
 import catalog.validators
 import core.models
@@ -28,27 +26,13 @@ class Item(core.models.CoreModel):
         verbose_name="теги",
         help_text="Можно выбрать несколько тегов",
     )
-    main_image = models.OneToOneField(
-        "ImageModel",
-        on_delete=models.CASCADE,
-        verbose_name="главная картинка",
-        related_name="item_main",
-        null=True,
-    )
 
     class Meta:
         verbose_name = "товар"
         verbose_name_plural = "товары"
 
     def __str__(self):
-        return f"{self.name}"
-
-    def main_image_tmb(self):
-        if self.main_image:
-            return mark_safe(
-                f"img src='{self.main_image.image.url} width='50'",
-            )
-        return "Нет изображения"
+        return self.name
 
 
 class Tag(core.models.CoreModel):
@@ -92,29 +76,21 @@ class Category(core.models.CoreModel):
         return f"{self.name}"
 
 
-class ImageModel(models.Model):
-    image = models.ImageField(
-        "изображение товара",
-        upload_to="catalog/",
+class MainImage(core.models.ImageModel):
+    item = models.OneToOneField(
+        Item, on_delete=models.CASCADE, related_name="main_image",
     )
+
+    class Meta:
+        verbose_name = "главное изображение"
+        verbose_name_plural = "главные изображения"
+
+
+class GalleryImage(core.models.ImageModel):
     item = models.ForeignKey(
-        Item,
-        related_name="images",
-        on_delete=models.CASCADE,
+        Item, on_delete=models.CASCADE, related_name="images",
     )
 
-    def get_image_x1280(self):
-        return get_thumbnail(self.image, "1280", quality=51)
-
-    def get_image_400x300(self):
-        return get_thumbnail(self.image, "400x300", crop="center", quality=51)
-
-    def image_tmb(self):
-        if self.image:
-            return mark_safe(
-                f"img src='{self.image.url} width='50'",
-            )
-        return "Нет изображения"
-
-    image_tmb.short_description = "превью"
-    image_tmb.allow_tags = True
+    class Meta:
+        verbose_name = "обычное изображение"
+        verbose_name_plural = "обычные изображения"

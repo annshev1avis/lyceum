@@ -2,6 +2,7 @@ asgiref==3.8.1
 black==24.8.0
 Django==4.2.16
 django-debug-toolbar==4.4.6
+django-dump-load-utf8==0.0.4
 flake8==7.1.1
 flake8-absolute-import==1.0.0.2
 flake8-commas==4.0.0
@@ -9,6 +10,8 @@ flake8-import-order==0.18.2
 flake8-quotes==3.4.0
 isort==5.13.2
 pep8-naming==0.14.1
+pillow==11.0.0
 python-dotenv==1.0.1
+sorl-thumbnail==12.11.0
 sqlparse==0.5.1
 tzdata==2024.2
