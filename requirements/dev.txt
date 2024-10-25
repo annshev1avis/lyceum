@@ -1,6 +1,7 @@
 asgiref==3.8.1
 black==24.8.0
 Django==4.2.16
+django-cleanup==9.0.0
 django-debug-toolbar==4.4.6
 django-dump-load-utf8==0.0.4
 flake8==7.1.1
