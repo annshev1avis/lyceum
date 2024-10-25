@@ -1,5 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from tinymce.models import HTMLField
 
 import catalog.validators
 import core.models
@@ -8,7 +9,7 @@ __all__ = ["Category", "GalleryImage", "Item", "MainImage", "Tag"]
 
 
 class Item(core.models.CoreModel):
-    text = models.TextField(
+    text = HTMLField(
         "текст",
         validators=[
             catalog.validators.ValidateMustContain("превосходно", "роскошно"),

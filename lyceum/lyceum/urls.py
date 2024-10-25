@@ -10,10 +10,7 @@ urlpatterns = [
     django.urls.path("", django.urls.include("homepage.urls")),
     django.urls.path("catalog/", django.urls.include("catalog.urls")),
     django.urls.path("about/", django.urls.include("about.urls")),
-    django.urls.path(
-        "summernote/",
-        django.urls.include("django_summernote.urls"),
-    ),
+    django.urls.path("tinymce/", django.urls.include("tinymce.urls")),
 ]
 
 if lyceum.settings.DEBUG:
