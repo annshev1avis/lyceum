@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 
 import catalog.models
 
@@ -15,7 +16,7 @@ class GalleryImagesInline(admin.TabularInline):
 
 
 @admin.register(catalog.models.Item)
-class ItemAdmin(admin.ModelAdmin):
+class ItemAdmin(SummernoteModelAdmin):
     list_display = [
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,
@@ -26,6 +27,7 @@ class ItemAdmin(admin.ModelAdmin):
     filter_horizontal = (catalog.models.Item.tags.field.name,)
     inlines = [MainImageInline, GalleryImagesInline]
     exclude = ["main_image"]
+    summernote_fields = ["text"]
 
     def main_image_preview(self, obj):
         if obj.main_image:

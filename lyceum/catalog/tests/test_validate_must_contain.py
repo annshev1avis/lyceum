@@ -55,3 +55,15 @@ class ValidateMustContainTests(TestCase):
     def test_negative_includes_word_substring_but_not_word(self):
         with self.assertRaises(ValidationError):
             self.validator("нероскошно")
+
+    def test_positive_with_html_tag(self):
+        self.assertEqual(
+            self.validator("<u>роскошно<u>"),
+            None,
+        )
+
+    def test_positive_with_html_tag_and_punctuation(self):
+        self.assertEqual(
+            self.validator("<u>роскошно!)...<u>"),
+            None,
+        )

@@ -10,7 +10,12 @@ __all__ = ["ValidateMustContain"]
 class ValidateMustContain:
     def __init__(self, *words):
         self.words = words
-        self.regex = r" [^\da-zа-я]*(?:" + "|".join(words) + r")[^\da-zа-я]* "
+        self.regex = "".join(
+            (
+                r" (?:<.+>)*[^\da-zа-я]*",
+                rf"(?:{'|'.join(words)})[^\da-zа-я]*(?:<.+>)* ",
+            ),
+        )
 
     def __call__(self, text):
         text = " " + text + " "

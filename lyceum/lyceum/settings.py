@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "core.apps.CoreConfig",
     "sorl.thumbnail",
+    "django_summernote",
     # "django_dump_load_utf8",  # для dumpdata в utf-8 на windows
     "django_cleanup.apps.CleanupConfig",
 ]
