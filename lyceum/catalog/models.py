@@ -29,10 +29,15 @@ class Item(core.models.CoreModel):
         verbose_name="теги",
         help_text="Можно выбрать несколько тегов",
     )
+    is_on_main = models.BooleanField(
+        "отображать на главной странице",
+        default=False,
+    )
 
     class Meta:
         verbose_name = "товар"
         verbose_name_plural = "товары"
+        ordering = ("name",)
 
     def __str__(self):
         return self.name

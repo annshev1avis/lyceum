@@ -1,5 +1,8 @@
+from django.db.models import Prefetch
 import django.http
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+
+import catalog.models
 
 __all__ = ["echo_num", "item_detail", "item_list"]
 
@@ -7,18 +10,26 @@ __all__ = ["echo_num", "item_detail", "item_list"]
 def item_list(request):
     template = "catalog/item_list.html"
     context = {
-        "goods": [
-            {"name": "енот 1", "description": "добрый"},
-            {"name": "енот 2", "description": "дружелюбный"},
-            {"name": "енот 3", "description": "грустный"},
-        ],
+        "goods": (
+            catalog.models.Item.active.select_related("category")
+            .prefetch_related(
+                Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.active.all().only("name"),
+                ),
+            )
+            .order_by("category__name", "name")
+            .only("name", "category__name", "text", "tags")
+        ),
     }
     return render(request, template, context)
 
 
 def item_detail(request, detail):
     template = "catalog/item.html"
-    context = {"name": f"енот {detail}"}
+    context = {
+        "good": get_object_or_404(catalog.models.Item.active, pk=detail),
+    }
     return render(request, template, context)
 
 

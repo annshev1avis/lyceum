@@ -7,6 +7,7 @@
         "is_published": true,
         "text": "превосходно написанная книга",
         "category": 1,
+        "is_on_main": false,
         "tags": []
     }
 },
@@ -15,9 +16,10 @@
     "pk": 2,
     "fields": {
         "name": "Гарри Поттер и философский камень",
-        "is_published": true,
+        "is_published": false,
         "text": "превосходно захватывающий роман",
         "category": 1,
+        "is_on_main": false,
         "tags": [
             2,
             3,
@@ -31,8 +33,9 @@
     "fields": {
         "name": "Плов",
         "is_published": true,
-        "text": "роскошно приготовленный рис с мясом",
+        "text": "<p style=\"text-align: right;\">роскошно приготовленный рис с мясом</p>",
         "category": 2,
+        "is_on_main": false,
         "tags": [
             4,
             5
@@ -44,9 +47,10 @@
     "pk": 4,
     "fields": {
         "name": "Имбирные пряники",
-        "is_published": true,
-        "text": "роскошно оформленные пряники в виде енотиков (ни один енот не пострадал)",
+        "is_published": false,
+        "text": "<p><span style=\"font-size: 18px;\">роскошно</span> оформленные <u>пряники </u>в виде енотиков (ни один енот не пострадал)</p>",
         "category": 2,
+        "is_on_main": true,
         "tags": [
             2,
             5
@@ -59,10 +63,25 @@
     "fields": {
         "name": "Геометрия 7-9 класс",
         "is_published": true,
-        "text": "превосходно",
+        "text": "<p><strong>превосходно</strong></p>",
         "category": 1,
+        "is_on_main": true,
         "tags": [
             3
+        ]
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 7,
+    "fields": {
+        "name": "Война и мир",
+        "is_published": true,
+        "text": "<p>Описание этого товара будет длиннее, чем сама книга, чтобы проверить правильность работы роскошно предоставленного джангой template-фильтра <em>trancatewords_html</em></p>",
+        "category": 1,
+        "is_on_main": true,
+        "tags": [
+            5
         ]
     }
 },
@@ -140,11 +159,35 @@
     }
 },
 {
+    "model": "catalog.mainimage",
+    "pk": 3,
+    "fields": {
+        "image": "catalog/плов.jpeg",
+        "item": 3
+    }
+},
+{
     "model": "catalog.galleryimage",
     "pk": 2,
     "fields": {
         "image": "catalog/geometry_additional.JPG",
         "item": 6
+    }
+},
+{
+    "model": "catalog.galleryimage",
+    "pk": 3,
+    "fields": {
+        "image": "catalog/рис.jpg",
+        "item": 3
+    }
+},
+{
+    "model": "catalog.galleryimage",
+    "pk": 4,
+    "fields": {
+        "image": "catalog/ингредиенты_для_плова.jpg",
+        "item": 3
     }
 }
 ]

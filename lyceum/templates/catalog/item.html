@@ -1,5 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h1>Страница отдельного енота</h1>
+  <h1>{{ good.name }}</h1>
+  <img src="{{ good.main_image.get_image_x1280.url }}" class="col-12 col-md-6">
+  <h2>Основная информация</h2>
+  <p>{{ good.text|safe }}</p>
+  <p>Категория: {{ good.category.name }}</p>
+  <p>Теги: {{ good.tags.all|join:", " }}</p>
+  <h3>Галерея:</h3>
+  <div>
+    {% for image in good.images.all %}
+      <img src="{{ image.get_image_x1280.url }}" class="col-12 col-md-3">
+    {% endfor %}
+  </div>
 {% endblock %}

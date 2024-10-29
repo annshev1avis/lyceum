@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">{{ good.name }}</h5>
+    <p class="card-text">Категория: {{ good.category.name }}</p>
+    <p class="card-text">{{ good.text|truncatewords_html:10|safe }}</p>
+    <p class="card-text">Теги: {{ good.tags.all|join:", " }}</p>
+    <a href="{% url "catalog:item_detail" good.id %}" class="btn btn-primary">Перейти</a>
+    </div>
+</div>

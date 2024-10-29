@@ -2,16 +2,10 @@
 
 {% block content %}
   <h1>Главная страница</h1>
-  <h1>Страница с товарами</h1>
+  <h2>Персональная подборка товаров</h2>
   <div class="d-flex flex-row gap-3">
-    {% for good in goods%}
-      <div class="card" style="width: 18rem;">
-          <div class="card-body">
-          <h5 class="card-title">{{ good.name }}</h5>
-          <p class="card-text">{{ good.description }}</p>
-          <a href="{% url "catalog:item_detail" 1 %}" class="btn btn-primary">Перейти</a>
-          </div>
-      </div>
+    {% for good in goods %}
+      {% include "includes/item_card.html" %}
     {% endfor %}
   </div>
 {% endblock %}

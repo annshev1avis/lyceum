@@ -33,7 +33,9 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "sorl.thumbnail",
     "tinymce",
-    # "django_dump_load_utf8",  # для dumpdata в utf-8 на windows
+    # для dumpdata в utf-8 на windows
+    # py manage.py dumpdatautf8 catalog --indent 4 --output fixtures/data.json
+    # "django_dump_load_utf8",
     "django_cleanup.apps.CleanupConfig",
 ]
 

@@ -5,7 +5,15 @@ from sorl.thumbnail import get_thumbnail
 __all__ = ["CoreModel", "ImageModel"]
 
 
+class ManagerActive(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_published=True)
+
+
 class CoreModel(models.Model):
+    objects = models.Manager()
+    active = ManagerActive()
+
     name = models.CharField(
         "название",
         max_length=150,
