@@ -57,8 +57,14 @@ class HomepageTests(django.test.TestCase):
     def test_homepage_endpoint(self):
         response = django.test.Client().get(reverse("homepage:homepage"))
         goods = response.context["goods"]
-        self.assertEqual(goods.count(), 1)
+        self.assertEqual(len(goods), 1)
 
     def test_teapot_endpoint(self):
-        response = django.test.Client().get(reverse("homepage:coffee"))
-        self.assertEqual(response.status_code, http.HTTPStatus.IM_A_TEAPOT)
+        responses_content = []
+
+        for _ in range(2):
+            response = django.test.Client().get(reverse("homepage:coffee"))
+            self.assertEqual(response.status_code, http.HTTPStatus.IM_A_TEAPOT)
+            responses_content.append(str(response.content, encoding="utf-8"))
+
+        self.assertIn("Я чайник", responses_content)

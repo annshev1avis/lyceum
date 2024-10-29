@@ -20,12 +20,14 @@ class Item(core.models.CoreModel):
         "Category",
         on_delete=models.CASCADE,
         related_name="items",
+        related_query_name="items",
         verbose_name="категория",
         help_text="Выберите категорию",
     )
     tags = models.ManyToManyField(
         "Tag",
         related_name="items",
+        related_query_name="items",
         verbose_name="теги",
         help_text="Можно выбрать несколько тегов",
     )
@@ -89,6 +91,7 @@ class MainImage(core.models.ImageModel):
         Item,
         on_delete=models.CASCADE,
         related_name="main_image",
+        related_query_name="main_image",
     )
 
     class Meta:
@@ -101,6 +104,7 @@ class GalleryImage(core.models.ImageModel):
         Item,
         on_delete=models.CASCADE,
         related_name="images",
+        related_query_name="images",
     )
 
     class Meta:

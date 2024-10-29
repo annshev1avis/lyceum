@@ -30,8 +30,7 @@ class ItemAdmin(admin.ModelAdmin):
     def main_image_preview(self, obj):
         if obj.main_image:
             return obj.main_image.image_tmb()
-        else:
-            return "Нет изображения"
+        return "Нет изображения"
 
     main_image_preview.short_description = "превью"
     main_image_preview.allow_tags = True

@@ -12,6 +12,7 @@ def item_list(request):
     context = {
         "goods": (
             catalog.models.Item.active.select_related("category")
+            .filter(category__is_published=True)
             .prefetch_related(
                 Prefetch(
                     "tags",
@@ -28,7 +29,14 @@ def item_list(request):
 def item_detail(request, detail):
     template = "catalog/item.html"
     context = {
-        "good": get_object_or_404(catalog.models.Item.active, pk=detail),
+        "good": get_object_or_404(
+            (
+                catalog.models.Item.active.filter(category__is_published=True)
+                .select_related("category")
+                .prefetch_related("tags")
+            ),
+            pk=detail,
+        ),
     }
     return render(request, template, context)
 
