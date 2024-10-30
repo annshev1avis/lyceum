@@ -33,7 +33,10 @@ def item_detail(request, detail):
             (
                 catalog.models.Item.active.filter(category__is_published=True)
                 .select_related("category")
+                .select_related("main_image")
+                .prefetch_related("images")
                 .prefetch_related("tags")
+                .defer("is_on_main")
             ),
             pk=detail,
         ),
