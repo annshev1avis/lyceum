@@ -36,7 +36,14 @@ def item_detail(request, detail):
                 .select_related("main_image")
                 .prefetch_related("images")
                 .prefetch_related("tags")
-                .defer("is_on_main")
+                .only(
+                    "name",
+                    "category__name",
+                    "text",
+                    "tags",
+                    "main_image",
+                    "images",
+                )
             ),
             pk=detail,
         ),

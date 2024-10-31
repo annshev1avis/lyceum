@@ -74,7 +74,6 @@ class CatalogViewsTest(TestCase):
         self.assertEqual(
             len(response.context["goods"]),
             2,
-            "Неправильное количество товаров в списке товаров",
         )
 
     def test_item_list_goods_type(self):
