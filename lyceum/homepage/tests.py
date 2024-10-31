@@ -67,24 +67,67 @@ class HomepageTests(django.test.TestCase):
         for item in response.context["items"]:
             self.assertIsInstance(item, catalog.models.Item)
 
-    def test_homepage_excludes_unnecessary_fields(self):
+    def test_homepage_excludes_is_on_main(self):
         response = django.test.Client().get(reverse("homepage:homepage"))
 
         for item in response.context["items"]:
             self.assertNotIn("is_on_main", item.__dict__)
+
+    def test_homepage_excludes_is_published(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
             self.assertNotIn("is_published", item.__dict__)
+
+    def test_homepage_excludes_main_image(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
             self.assertNotIn("main_image_id", item.__dict__)
+
+    def test_homepage_excludes_images(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
             self.assertNotIn(
                 "images",
                 item.__dict__["_prefetched_objects_cache"],
             )
 
+    def test_homepage_excludes_category_is_published(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
             self.assertNotIn("is_published", item.category.__dict__)
+
+    def test_homepage_excludes_category_weight(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
             self.assertNotIn("weight", item.category.__dict__)
+
+    def test_homepage_excludes_category_slug(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
+            self.assertNotIn("slug", item.category.__dict__)
+
+    def test_homepage_excludes_tag_is_published(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
             self.assertNotIn("slug", item.category.__dict__)
 
             for tag in item.tags.all():
                 self.assertNotIn("is_published", tag.__dict__)
+
+    def test_homepage_excludes_tag_slug(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
+            self.assertNotIn("slug", item.category.__dict__)
+
+            for tag in item.tags.all():
                 self.assertNotIn("slug", tag.__dict__)
 
     def test_teapot(self):
