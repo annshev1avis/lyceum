@@ -4,7 +4,7 @@
   <h1>Главная страница</h1>
   <h2>Персональная подборка товаров</h2>
   <div class="d-flex flex-row gap-3">
-    {% for good in goods %}
+    {% for item in items %}
       {% include "includes/item_card.html" %}
     {% endfor %}
   </div>

@@ -54,12 +54,40 @@ class HomepageTests(django.test.TestCase):
         self.item2.save()
         self.item3_unpublished.save()
 
-    def test_homepage_endpoint(self):
+    def test_homepage_items_in_context(self):
         response = django.test.Client().get(reverse("homepage:homepage"))
-        goods = response.context["goods"]
-        self.assertEqual(len(goods), 1)
+        self.assertIn("items", response.context)
 
-    def test_teapot_endpoint(self):
+    def test_homepage_items_len(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+        self.assertEqual(len(response.context["items"]), 1)
+
+    def test_homepage_items_type(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+        for item in response.context["items"]:
+            self.assertIsInstance(item, catalog.models.Item)
+
+    def test_homepage_excludes_unnecessary_fields(self):
+        response = django.test.Client().get(reverse("homepage:homepage"))
+
+        for item in response.context["items"]:
+            self.assertNotIn("is_on_main", item.__dict__)
+            self.assertNotIn("is_published", item.__dict__)
+            self.assertNotIn("main_image_id", item.__dict__)
+            self.assertNotIn(
+                "images",
+                item.__dict__["_prefetched_objects_cache"],
+            )
+
+            self.assertNotIn("is_published", item.category.__dict__)
+            self.assertNotIn("weight", item.category.__dict__)
+            self.assertNotIn("slug", item.category.__dict__)
+
+            for tag in item.tags.all():
+                self.assertNotIn("is_published", tag.__dict__)
+                self.assertNotIn("slug", tag.__dict__)
+
+    def test_teapot(self):
         responses_content = []
 
         for _ in range(2):

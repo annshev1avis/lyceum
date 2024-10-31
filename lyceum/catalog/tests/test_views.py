@@ -65,42 +65,70 @@ class CatalogViewsTest(TestCase):
         self.item3_unpublished.save()
         self.item4.save()
 
-    def test_item_list_goods_in_context(self):
+    def test_item_list_items_in_context(self):
         response = Client().get(reverse("catalog:item_list"))
-        self.assertIn("goods", response.context)
+        self.assertIn("items", response.context)
 
-    def test_item_list_goods_len(self):
+    def test_item_list_items_len(self):
         response = Client().get(reverse("catalog:item_list"))
-        self.assertEqual(len(response.context["goods"]), 2)
+        self.assertEqual(len(response.context["items"]), 2)
 
-    def test_item_list_goods_type(self):
+    def test_item_list_items_type(self):
         response = Client().get(reverse("catalog:item_list"))
-        for good in response.context["goods"]:
-            self.assertIsInstance(good, catalog.models.Item)
+        for item in response.context["items"]:
+            self.assertIsInstance(item, catalog.models.Item)
 
-    def test_single_item_good_in_context(self):
+    def test_item_list_items_excludes_unnecessary_fields(self):
+        response = Client().get(reverse("catalog:item_list"))
+
+        for item in response.context["items"]:
+            self.assertNotIn("is_on_main", item.__dict__)
+            self.assertNotIn("is_published", item.__dict__)
+            self.assertNotIn("main_image_id", item.__dict__)
+            self.assertNotIn(
+                "images",
+                item.__dict__["_prefetched_objects_cache"],
+            )
+
+            self.assertNotIn("is_published", item.category.__dict__)
+            self.assertNotIn("weight", item.category.__dict__)
+            self.assertNotIn("slug", item.category.__dict__)
+
+            for tag in item.tags.all():
+                self.assertNotIn("is_published", tag.__dict__)
+                self.assertNotIn("slug", tag.__dict__)
+
+    def test_single_item_item_in_context(self):
         published_item_id = self.item1.id
         response = Client().get(
             reverse("catalog:item_detail", args=[published_item_id]),
         )
-        self.assertIn("good", response.context)
+        self.assertIn("item", response.context)
 
     def test_single_item_is_item_instance(self):
         published_item_id = self.item1.id
         response = Client().get(
             reverse("catalog:item_detail", args=[published_item_id]),
         )
-        self.assertIsInstance(response.context["good"], catalog.models.Item)
+        self.assertIsInstance(response.context["item"], catalog.models.Item)
 
-    def test_single_item_includes_prefetched(self):
+    def test_single_item_excludes_unnecessary_fields(self):
         published_item_id = self.item1.id
         response = Client().get(
             reverse("catalog:item_detail", args=[published_item_id]),
         )
-        self.assertIn(
-            "_prefetched_objects_cache",
-            response.context["good"].__dict__,
-        )
+        item = response.context["item"]
+
+        self.assertNotIn("is_on_main", item.__dict__)
+        self.assertNotIn("is_published", item.__dict__)
+
+        self.assertNotIn("is_published", item.category.__dict__)
+        self.assertNotIn("weight", item.category.__dict__)
+        self.assertNotIn("slug", item.category.__dict__)
+
+        for tag in item.tags.all():
+            self.assertNotIn("is_published", tag.__dict__)
+            self.assertNotIn("slug", tag.__dict__)
 
     def test_single_item_unpublished(self):
         unpublished_item_id = self.item3_unpublished.id

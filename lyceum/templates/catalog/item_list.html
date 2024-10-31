@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Страница с товарами</h1>
-  <div class="d-flex flex-row gap-3">
-    {% for good in goods %}
-      {% include "includes/item_card.html" %}
+  <h1>Каталог</h1>
+  <div>
+    {% for item in items %}
+      {% ifchanged item.category.name %} 
+        </div>
+        <h3>{{ item.category.name }}</h3> 
+        <div class="d-flex flex-row gap-3 flex-wrap">
+      {% endifchanged %}
+      {% include 'includes/item_card.html' %}
     {% endfor %}
   </div>
 {% endblock %}

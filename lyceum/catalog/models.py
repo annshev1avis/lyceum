@@ -8,7 +8,45 @@ import core.models
 __all__ = ["Category", "GalleryImage", "Item", "MainImage", "Tag"]
 
 
+class ItemBusinessLogicManager(models.Manager):
+    def on_main(self):
+        return (
+            self.get_queryset()
+            .select_related("category")
+            .filter(
+                is_published=True,
+                category__is_published=True,
+                is_on_main=True,
+            )
+            .prefetch_related(
+                models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.active.all().only("name"),
+                ),
+            )
+            .order_by("name")
+            .only("name", "category__name", "text", "tags")
+        )
+
+    def published(self):
+        return (
+            self.get_queryset()
+            .select_related("category")
+            .filter(is_published=True, category__is_published=True)
+            .prefetch_related(
+                models.Prefetch(
+                    "tags",
+                    queryset=catalog.models.Tag.active.all().only("name"),
+                ),
+            )
+            .order_by("category__name", "name")
+            .only("name", "category__name", "text", "tags")
+        )
+
+
 class Item(core.models.CoreModel):
+    business_logic = ItemBusinessLogicManager()
+
     text = HTMLField(
         "текст",
         validators=[

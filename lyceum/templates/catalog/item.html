@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
-  <h1>{{ good.name }}</h1>
-  <img src="{{ good.main_image.image.url }}" class="col-12 col-md-6">
+  <h1>{{ item.name }}</h1>
+  <img src="{{ item.main_image.image.url }}" class="col-12 col-md-6">
   <h2>Основная информация</h2>
-  <p>{{ good.text|safe }}</p>
-  <p>Категория: {{ good.category.name }}</p>
-  <p>Теги: {{ good.tags.all|join:", " }}</p>
+  <p>{{ item.text|safe }}</p>
+  <p>Категория: {{ item.category.name }}</p>
+  <p>Теги: {{ item.tags.all|join:", " }}</p>
   <h3>Галерея:</h3>
   <div>
-    {% for image in good.images.all %}
+    {% for image in item.images.all %}
       <img src="{{ image.image.url }}" class="col-12 col-md-3">
     {% endfor %}
   </div>
