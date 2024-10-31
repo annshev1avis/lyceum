@@ -71,10 +71,7 @@ class CatalogViewsTest(TestCase):
 
     def test_item_list_goods_len(self):
         response = Client().get(reverse("catalog:item_list"))
-        self.assertEqual(
-            len(response.context["goods"]),
-            2,
-        )
+        self.assertEqual(len(response.context["goods"]), 2)
 
     def test_item_list_goods_type(self):
         response = Client().get(reverse("catalog:item_list"))
@@ -103,7 +100,6 @@ class CatalogViewsTest(TestCase):
         self.assertIn(
             "_prefetched_objects_cache",
             response.context["good"].__dict__,
-            "Не загружаются связанные поля",
         )
 
     def test_single_item_unpublished(self):

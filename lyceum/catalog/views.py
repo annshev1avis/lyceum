@@ -35,7 +35,12 @@ def item_detail(request, detail):
                 .select_related("category")
                 .select_related("main_image")
                 .prefetch_related("images")
-                .prefetch_related("tags")
+                .prefetch_related(
+                    Prefetch(
+                        "tags",
+                        queryset=catalog.models.Tag.active.all().only("name"),
+                    ),
+                )
                 .only(
                     "name",
                     "category__name",
