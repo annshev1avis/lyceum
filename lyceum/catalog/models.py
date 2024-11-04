@@ -28,40 +28,45 @@ class ItemBusinessLogicManager(models.Manager):
         )
 
     def on_main(self):
-        return (self.published()
-                .filter(is_on_main=True)
-                .order_by("name")  # clear previous ordering
-                )
+        return (
+            self.published()
+            .filter(is_on_main=True)
+            .order_by("name")  # clear previous ordering
+        )
 
     def new(self, amount):
-        # возвращает случайные товары (в количестве amount), которые были добавлены
+        # возвращает случайные товары (в количестве amount),
+        # которые были добавлены
         # за последнюю неделю (строго 24*7 часов с момента добавления в базу)
 
-        convinient_ids = list(self.published()
-                .filter(create_date__date__gt=(datetime.datetime.now() - datetime.timedelta(days=7)))
-                .values_list("id", flat=True)
-                )
+        convinient_ids = list(
+            self.published()
+            .filter(
+                create_date__date__gt=(
+                    datetime.datetime.now() - datetime.timedelta(days=7),
+                ),
+            )
+            .values_list("id", flat=True),
+        )
         random.shuffle(convinient_ids)
-        
+
         if convinient_ids:
-            will_show_ids = convinient_ids[:min(len(convinient_ids), 5)]
+            will_show_ids = convinient_ids[: min(len(convinient_ids), 5)]
         else:
             will_show_ids = []
 
-        return (self.published()
-                .filter(id__in=will_show_ids)
-            )
-    
+        return self.published().filter(id__in=will_show_ids)
+
     def friday(self):
-        return (self.published()
-                .filter(update_date__week_day=6)
-                .order_by("-update_date")[:5]
-            )
-    
+        return (
+            self.published()
+            .filter(update_date__week_day=6)
+            .order_by("-update_date")[:5]
+        )
+
     def unverified(self):
-        return (self.published()
-                .filter(create_date=models.F('update_date'))
-            )
+        return self.published().filter(create_date=models.F("update_date"))
+
 
 class Item(core.models.CoreModel):
     business_logic = ItemBusinessLogicManager()

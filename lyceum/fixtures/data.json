@@ -6,6 +6,8 @@
         "name": "Карманный справочник по python",
         "is_published": true,
         "text": "превосходно написанная книга",
+        "create_date": "2024-11-02",
+        "update_date": "2024-11-02",
         "category": 1,
         "is_on_main": false,
         "tags": []
@@ -18,6 +20,8 @@
         "name": "Гарри Поттер и философский камень",
         "is_published": false,
         "text": "превосходно захватывающий роман",
+        "create_date": "2024-11-02",
+        "update_date": "2024-11-02",
         "category": 1,
         "is_on_main": false,
         "tags": [
@@ -34,6 +38,8 @@
         "name": "Плов",
         "is_published": true,
         "text": "<p style=\"text-align: right;\">роскошно приготовленный рис с мясом</p>",
+        "create_date": "2024-11-02",
+        "update_date": "2024-11-02",
         "category": 2,
         "is_on_main": false,
         "tags": [
@@ -47,8 +53,10 @@
     "pk": 4,
     "fields": {
         "name": "Имбирные пряники",
-        "is_published": false,
+        "is_published": true,
         "text": "<p><span style=\"font-size: 18px;\">роскошно</span> оформленные <u>пряники </u>в виде енотиков (ни один енот не пострадал)</p>",
+        "create_date": "2024-11-02",
+        "update_date": "2024-11-04",
         "category": 2,
         "is_on_main": true,
         "tags": [
@@ -64,6 +72,8 @@
         "name": "Геометрия 7-9 класс",
         "is_published": true,
         "text": "<p><strong>превосходно</strong></p>",
+        "create_date": "2024-11-02",
+        "update_date": "2024-11-02",
         "category": 1,
         "is_on_main": true,
         "tags": [
@@ -78,10 +88,28 @@
         "name": "Война и мир",
         "is_published": true,
         "text": "<p>Описание этого товара будет длиннее, чем сама книга, чтобы проверить правильность работы роскошно предоставленного джангой template-фильтра <em>trancatewords_html</em></p>",
+        "create_date": "2024-11-02",
+        "update_date": "2024-11-02",
         "category": 1,
         "is_on_main": true,
         "tags": [
             5
+        ]
+    }
+},
+{
+    "model": "catalog.item",
+    "pk": 8,
+    "fields": {
+        "name": "Курица тереяки",
+        "is_published": true,
+        "text": "<p>Превосходно сочетается с рисом</p>",
+        "create_date": "2024-11-04",
+        "update_date": "2024-11-04",
+        "category": 2,
+        "is_on_main": false,
+        "tags": [
+            1
         ]
     }
 },

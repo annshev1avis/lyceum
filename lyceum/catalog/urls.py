@@ -11,7 +11,11 @@ urlpatterns = [
     path("", catalog.views.item_list, name="item_list"),
     path("new/", catalog.views.item_list_new_5, name="item_list_new"),
     path("friday/", catalog.views.item_list_friday, name="item_list_friday"),
-    path("unverified/", catalog.views.item_list_unverified, name="item_list_unverified"),
+    path(
+        "unverified/",
+        catalog.views.item_list_unverified,
+        name="item_list_unverified",
+    ),
     path(
         "<int:detail>/",
         catalog.views.item_detail,
