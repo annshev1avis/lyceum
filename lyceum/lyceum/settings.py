@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "catalog.apps.CatalogConfig",
     "about.apps.AboutConfig",
     "core.apps.CoreConfig",
+    "download.apps.DownloadConfig",
     "sorl.thumbnail",
     "tinymce",
     # для dumpdata в utf-8 на windows

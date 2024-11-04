@@ -14,6 +14,26 @@ def item_list(request):
     }
     return render(request, template, context)
 
+def item_list_new_5(request):
+    template = "catalog/item_list.html"
+    context = {
+        "items": catalog.models.Item.business_logic.new(5),
+    }
+    return render(request, template, context)
+
+def item_list_friday(request):
+    template = "catalog/item_list.html"
+    context = {
+        "items": catalog.models.Item.business_logic.friday(),
+    }
+    return render(request, template, context)
+
+def item_list_unverified(request):
+    template = "catalog/item_list.html"
+    context = {
+        "items": catalog.models.Item.business_logic.unverified(),
+    }
+    return render(request, template, context)
 
 def item_detail(request, detail):
     template = "catalog/item.html"

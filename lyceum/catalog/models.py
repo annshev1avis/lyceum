@@ -1,3 +1,6 @@
+import datetime
+import random
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from tinymce.models import HTMLField
@@ -9,25 +12,6 @@ __all__ = ["Category", "GalleryImage", "Item", "MainImage", "Tag"]
 
 
 class ItemBusinessLogicManager(models.Manager):
-    def on_main(self):
-        return (
-            self.get_queryset()
-            .select_related("category")
-            .filter(
-                is_published=True,
-                category__is_published=True,
-                is_on_main=True,
-            )
-            .prefetch_related(
-                models.Prefetch(
-                    "tags",
-                    queryset=catalog.models.Tag.active.all().only("name"),
-                ),
-            )
-            .order_by("name")
-            .only("name", "category__name", "text", "tags")
-        )
-
     def published(self):
         return (
             self.get_queryset()
@@ -43,6 +27,41 @@ class ItemBusinessLogicManager(models.Manager):
             .only("name", "category__name", "text", "tags")
         )
 
+    def on_main(self):
+        return (self.published()
+                .filter(is_on_main=True)
+                .order_by("name")  # clear previous ordering
+                )
+
+    def new(self, amount):
+        # возвращает случайные товары (в количестве amount), которые были добавлены
+        # за последнюю неделю (строго 24*7 часов с момента добавления в базу)
+
+        convinient_ids = list(self.published()
+                .filter(create_date__date__gt=(datetime.datetime.now() - datetime.timedelta(days=7)))
+                .values_list("id", flat=True)
+                )
+        random.shuffle(convinient_ids)
+        
+        if convinient_ids:
+            will_show_ids = convinient_ids[:min(len(convinient_ids), 5)]
+        else:
+            will_show_ids = []
+
+        return (self.published()
+                .filter(id__in=will_show_ids)
+            )
+    
+    def friday(self):
+        return (self.published()
+                .filter(update_date__week_day=6)
+                .order_by("-update_date")[:5]
+            )
+    
+    def unverified(self):
+        return (self.published()
+                .filter(create_date=models.F('update_date'))
+            )
 
 class Item(core.models.CoreModel):
     business_logic = ItemBusinessLogicManager()
@@ -54,6 +73,8 @@ class Item(core.models.CoreModel):
         ],
         help_text="Опишите товар",
     )
+    create_date = models.DateField(auto_now_add=True)
+    update_date = models.DateField(auto_now=True)
     category = models.ForeignKey(
         "Category",
         on_delete=models.CASCADE,

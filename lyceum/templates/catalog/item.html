@@ -3,15 +3,25 @@
 
 {% block content %}
   <h1>{{ item.name }}</h1>
-  <img src="{{ item.main_image.image.url }}" class="col-12 col-md-6">
+  <div class="d-flex flex-column">
+    {% if item.main_image %}
+      <img src="{{ item.main_image.image.url }}" class="col-12 col-md-6">
+      <a href="{% url "download:download_media_file" item.main_image.image.url %}">Скачать изображение</a>
+    {% endif %}
+  </div>  
   <h2>Основная информация</h2>
   <p>{{ item.text|safe }}</p>
   <p>Категория: {{ item.category.name }}</p>
   <p>Теги: {{ item.tags.all|join:", " }}</p>
-  <h3>Галерея:</h3>
-  <div>
-    {% for image in item.images.all %}
-      <img src="{{ image.image.url }}" class="col-12 col-md-3">
-    {% endfor %}
-  </div>
+  {% if item.images.count %}
+    <h3>Галерея:</h3>
+    <div>
+      {% for image in item.images.all %}
+        <div class="d-flex flex-column">
+          <img src="{{ image.image.url }}" class="col-12 col-md-3">
+          <a href="{% url "download:download_media_file" image.image.url %}">Скачать изображение</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endblock %}
