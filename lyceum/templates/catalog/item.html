@@ -6,7 +6,7 @@
   <div class="d-flex flex-column">
     {% if item.main_image %}
       <img src="{{ item.main_image.image.url }}" class="col-12 col-md-6">
-      <a href="{% url "download:download_media_file" item.main_image.image.url %}">Скачать изображение</a>
+      <a href="{% url "download:download_media_file" item.main_image.image %}">Скачать изображение</a>
     {% endif %}
   </div>  
   <h2>Основная информация</h2>
@@ -19,7 +19,7 @@
       {% for image in item.images.all %}
         <div class="d-flex flex-column">
           <img src="{{ image.image.url }}" class="col-12 col-md-3">
-          <a href="{% url "download:download_media_file" image.image.url %}">Скачать изображение</a>
+          <a href="{% url "download:download_media_file" image.image %}">Скачать изображение {{ image.image }}</a>
         </div>
       {% endfor %}
     </div>

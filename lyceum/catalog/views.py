@@ -10,6 +10,7 @@ __all__ = ["echo_num", "item_detail", "item_list"]
 def item_list(request):
     template = "catalog/item_list.html"
     context = {
+        "title": "Каталог",
         "items": catalog.models.Item.business_logic.published(),
     }
     return render(request, template, context)
@@ -18,6 +19,7 @@ def item_list(request):
 def item_list_new_5(request):
     template = "catalog/item_list.html"
     context = {
+        "title": "Новинки",
         "items": catalog.models.Item.business_logic.new(5),
     }
     return render(request, template, context)
@@ -26,6 +28,7 @@ def item_list_new_5(request):
 def item_list_friday(request):
     template = "catalog/item_list.html"
     context = {
+        "title": "Пятница",
         "items": catalog.models.Item.business_logic.friday(),
     }
     return render(request, template, context)
@@ -34,6 +37,7 @@ def item_list_friday(request):
 def item_list_unverified(request):
     template = "catalog/item_list.html"
     context = {
+        "title": "Непроверенное",
         "items": catalog.models.Item.business_logic.unverified(),
     }
     return render(request, template, context)

@@ -30,6 +30,10 @@ class ItemAdmin(admin.ModelAdmin):
     filter_horizontal = (catalog.models.Item.tags.field.name,)
     inlines = [MainImageInline, GalleryImagesInline]
     exclude = ["main_image"]
+    readonly_fields = [
+        catalog.models.Item.created.field.name,
+        catalog.models.Item.updated.field.name,
+    ]
 
     def main_image_preview(self, obj):
         if obj.main_image:

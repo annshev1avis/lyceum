@@ -3,6 +3,7 @@ import random
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+import django.utils.timezone
 from tinymce.models import HTMLField
 
 import catalog.validators
@@ -43,7 +44,7 @@ class ItemBusinessLogicManager(models.Manager):
             self.published()
             .filter(
                 create_date__date__gt=(
-                    datetime.datetime.now() - datetime.timedelta(days=7),
+                    django.utils.timezone.now() - datetime.timedelta(days=7),
                 ),
             )
             .values_list("id", flat=True),
@@ -78,8 +79,16 @@ class Item(core.models.CoreModel):
         ],
         help_text="Опишите товар",
     )
-    create_date = models.DateField(auto_now_add=True)
-    update_date = models.DateField(auto_now=True)
+    created = models.DateTimeField(
+        "время создания",
+        auto_now_add=True,
+        null=True,
+    )
+    updated = models.DateTimeField(
+        "время обновления",
+        auto_now=True,
+        null=True,
+    )
     category = models.ForeignKey(
         "Category",
         on_delete=models.CASCADE,
