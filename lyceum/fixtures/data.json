@@ -146,7 +146,7 @@
     "fields": {
         "name": "Фэнтези",
         "is_published": true,
-        "canonical_name": null,
+        "canonical_name": "fentezi",
         "slug": "fantasy"
     }
 },
@@ -166,7 +166,7 @@
     "fields": {
         "name": "Хороший подарок",
         "is_published": true,
-        "canonical_name": null,
+        "canonical_name": "horoshijpodarok",
         "slug": "good_gift"
     }
 },

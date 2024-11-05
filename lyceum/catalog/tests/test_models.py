@@ -20,6 +20,21 @@ class ModelsTests(TestCase):
             catalog.models.Tag.objects.count(),
         )
 
+    def test_creating_tag_not_unique_canonical_name(self):
+        initial_amount = catalog.models.Tag.objects.count()
+        with self.assertRaises(ValidationError):
+            tag = catalog.models.Tag(
+                name="ФэнтезИ...",
+                slug="unique_fantasy_slug",
+            )
+            tag.full_clean()
+            tag.save()
+
+        self.assertEqual(
+            initial_amount,
+            catalog.models.Tag.objects.count(),
+        )
+
     def test_creating_category(self):
         initial_amount = catalog.models.Category.objects.count()
 
@@ -39,9 +54,24 @@ class ModelsTests(TestCase):
         initial_amount = catalog.models.Category.objects.count()
         with self.assertRaises(ValidationError):
             category = catalog.models.Category(
-                name="Тестовая категория",
+                name="Тестовая категория два",
                 slug="test_category",
                 weight=40000,
+            )
+            category.full_clean()
+            category.save()
+
+        self.assertEqual(
+            initial_amount,
+            catalog.models.Category.objects.count(),
+        )
+
+    def test_creating_category_not_unique_canonical_name(self):
+        initial_amount = catalog.models.Category.objects.count()
+        with self.assertRaises(ValidationError):
+            category = catalog.models.Category(
+                name="ЕДА!",
+                slug="unique_fantasy_slug",
             )
             category.full_clean()
             category.save()
@@ -56,7 +86,7 @@ class ModelsTests(TestCase):
 
         test_category = catalog.models.Category.objects.all()[0]
         test_tag1 = catalog.models.Tag.objects.all()[0]
-        test_tag2 = catalog.models.Tag.objects.all()[0]
+        test_tag2 = catalog.models.Tag.objects.all()[1]
 
         item = catalog.models.Item(
             name="Кулинария для джангистов",
@@ -84,7 +114,7 @@ class ModelsTests(TestCase):
 
         with self.assertRaises(ValidationError):
             item = catalog.models.Item(
-                name="Кулинария для джангистов",
+                name="Кулинария для джангистов два",
                 text="нет нужного слова",
                 category=test_category,
             )

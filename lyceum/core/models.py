@@ -42,10 +42,14 @@ class CoreModel(models.Model):
     )
 
     def _generate_canonical_name(self):
-        transliterated = transliterate.translit(
-            self.name.lower(),
-            reversed=True,
-        )
+        try:
+            transliterated = transliterate.translit(
+                self.name.lower(),
+                reversed=True,
+            )
+        except transliterate.exceptions.LanguageDetectionError:
+            transliterated = self.name.lower()
+
         return ONLY_LETTERS_REGEX.sub("", transliterated)
 
     def save(self, *args, **kwargs):
@@ -53,6 +57,7 @@ class CoreModel(models.Model):
         super().save(*args, **kwargs)
 
     def clean(self):
+        self.canonical_name = self._generate_canonical_name()
         if (
             type(self)
             .objects.filter(canonical_name=self.canonical_name)
