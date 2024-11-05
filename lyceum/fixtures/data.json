@@ -5,6 +5,7 @@
     "fields": {
         "name": "Карманный справочник по python",
         "is_published": true,
+        "canonical_name": null,
         "text": "превосходно написанная книга",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -19,6 +20,7 @@
     "fields": {
         "name": "Гарри Поттер и философский камень",
         "is_published": false,
+        "canonical_name": null,
         "text": "превосходно захватывающий роман",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -37,6 +39,7 @@
     "fields": {
         "name": "Плов",
         "is_published": true,
+        "canonical_name": null,
         "text": "<p style=\"text-align: right;\">роскошно приготовленный рис с мясом</p>",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -54,6 +57,7 @@
     "fields": {
         "name": "Имбирные пряники",
         "is_published": true,
+        "canonical_name": null,
         "text": "<p><span style=\"font-size: 18px;\">роскошно</span> оформленные <u>пряники </u>в виде енотиков (ни один енот не пострадал)</p>",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -71,6 +75,7 @@
     "fields": {
         "name": "Геометрия 7-9 класс",
         "is_published": true,
+        "canonical_name": null,
         "text": "<p><strong>превосходно</strong></p>",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -87,6 +92,7 @@
     "fields": {
         "name": "Война и мир",
         "is_published": true,
+        "canonical_name": null,
         "text": "<p>Описание этого товара будет длиннее, чем сама книга, чтобы проверить правильность работы роскошно предоставленного джангой template-фильтра <em>trancatewords_html</em></p>",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -103,6 +109,7 @@
     "fields": {
         "name": "Курица тереяки",
         "is_published": true,
+        "canonical_name": null,
         "text": "<p>Превосходно сочетается с рисом</p>",
         "created": "2024-11-05T08:52:19.807Z",
         "updated": "2024-11-05T08:52:19.817Z",
@@ -119,6 +126,7 @@
     "fields": {
         "name": "Python",
         "is_published": true,
+        "canonical_name": null,
         "slug": "python"
     }
 },
@@ -128,6 +136,7 @@
     "fields": {
         "name": "Новогоднее",
         "is_published": true,
+        "canonical_name": null,
         "slug": "new_year"
     }
 },
@@ -137,6 +146,7 @@
     "fields": {
         "name": "Фэнтези",
         "is_published": true,
+        "canonical_name": null,
         "slug": "fantasy"
     }
 },
@@ -146,6 +156,7 @@
     "fields": {
         "name": "Узбекское",
         "is_published": true,
+        "canonical_name": null,
         "slug": "uzbek"
     }
 },
@@ -155,6 +166,7 @@
     "fields": {
         "name": "Хороший подарок",
         "is_published": true,
+        "canonical_name": null,
         "slug": "good_gift"
     }
 },
@@ -164,6 +176,7 @@
     "fields": {
         "name": "Книги",
         "is_published": true,
+        "canonical_name": null,
         "slug": "books",
         "weight": 10
     }
@@ -174,6 +187,7 @@
     "fields": {
         "name": "Еда",
         "is_published": true,
+        "canonical_name": "eda",
         "slug": "food",
         "weight": 100
     }
