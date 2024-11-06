@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Интернет-магазин енотов</title>
+    <title>{{ title }}</title>
     <link rel="icon" href="{% static "img/favicon.ico" %}" type="image">
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/styles.css" %}" rel="stylesheet">
@@ -15,6 +15,7 @@
       {% include "includes/header.html" %}
 
       <main class="container">
+        <h1>{{ title }}</h1>
         {% block content %}<h1>Контент страницы недоступен :(</h1>{% endblock %}
         <div class="row" >
           <img src="{% static "img/racoon.jpg" %}" class="col-9 col-md-6 col-xl-3 pt-5">

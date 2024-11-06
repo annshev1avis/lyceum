@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 import django.utils.timezone
 from tinymce.models import HTMLField
+import django.utils.safestring
 
 import catalog.validators
 import core.models
@@ -40,12 +41,12 @@ class ItemBusinessLogicManager(models.Manager):
         # которые были добавлены
         # за последнюю неделю (строго 24*7 часов с момента добавления в базу)
 
+        one_week_ago = django.utils.timezone.now() - datetime.timedelta(days=7)
+
         convinient_ids = list(
             self.published()
             .filter(
-                create_date__date__gt=(
-                    django.utils.timezone.now() - datetime.timedelta(days=7),
-                ),
+                created__gt=one_week_ago
             )
             .values_list("id", flat=True),
         )
@@ -61,12 +62,17 @@ class ItemBusinessLogicManager(models.Manager):
     def friday(self):
         return (
             self.published()
-            .filter(update_date__week_day=6)
-            .order_by("-update_date")[:5]
+            .filter(updated__week_day=6)
+            .order_by("-updated")[:5]
         )
 
     def unverified(self):
-        return self.published().filter(create_date=models.F("update_date"))
+        return (self.published()
+            .filter(
+                created__gte=models.F("updated") - datetime.timedelta(seconds=1),
+                created__lte=models.F("updated") + datetime.timedelta(seconds=1),
+            )
+        )
 
 
 class Item(core.models.CoreModel):
@@ -116,6 +122,16 @@ class Item(core.models.CoreModel):
 
     def __str__(self):
         return self.name
+    
+    def image_tmb(self):
+        if self.main_image.image:
+            return django.utils.safestring.mark_safe(
+                f"<img src='{self.main_image.get_image_x50().url}' width='50'>",
+            )
+        return "Нет изображения"
+
+    image_tmb.short_description = "превью"
+    image_tmb.allow_tags = True
 
 
 class Tag(core.models.CoreModel):

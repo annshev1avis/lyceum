@@ -20,7 +20,7 @@ class ItemAdmin(admin.ModelAdmin):
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,
         catalog.models.Item.is_on_main.field.name,
-        "main_image_preview",
+        catalog.models.Item.image_tmb,
     ]
     list_editable = [
         catalog.models.Item.is_published.field.name,
@@ -34,14 +34,6 @@ class ItemAdmin(admin.ModelAdmin):
         catalog.models.Item.created.field.name,
         catalog.models.Item.updated.field.name,
     ]
-
-    def main_image_preview(self, obj):
-        if obj.main_image:
-            return obj.main_image.image_tmb()
-        return "Нет изображения"
-
-    main_image_preview.short_description = "превью"
-    main_image_preview.allow_tags = True
 
 
 admin.site.register(catalog.models.Tag)

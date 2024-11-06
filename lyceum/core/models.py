@@ -77,20 +77,13 @@ class ImageModel(models.Model):
     )
 
     def get_image_x1280(self):
-        return get_thumbnail(self.image, "1280", quality=51)
+        return get_thumbnail(self.image, "x1280", quality=51)
 
-    def get_image_300x300(self):
-        return get_thumbnail(self.image, "300x300", crop="center", quality=51)
+    def get_image_x300(self):
+        return get_thumbnail(self.image, "x300", quality=51)
 
-    def image_tmb(self):
-        if self.image:
-            return mark_safe(
-                f"<img src='{self.image.url}' width='50'>",
-            )
-        return "Нет изображения"
-
-    image_tmb.short_description = "превью"
-    image_tmb.allow_tags = True
+    def get_image_x50(self):
+        return get_thumbnail(self.image, "x50", quality=51)
 
     class Meta:
         abstract = True

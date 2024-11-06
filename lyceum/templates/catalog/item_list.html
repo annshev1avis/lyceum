@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ title }}</h1>
   <div>
     {% for item in items %}
       {% ifchanged item.category.name %} 

@@ -12,6 +12,7 @@ __all__ = ["home", "teapot"]
 def home(request):
     template = "homepage/main.html"
     context = {
+        "title": "Главная",
         "items": catalog.models.Item.business_logic.on_main(),
     }
     return render(request, template, context)
