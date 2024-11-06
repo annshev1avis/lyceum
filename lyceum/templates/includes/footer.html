@@ -1,5 +1,14 @@
 {% load static %}
 
 <footer class="container">
-    <h6 class="fs-5">Copyright Racoon-Company. 2024</h6>
+  <h6 class="fs-5">Copyright Racoon-Company. <span id="year">{% now "Y" %}</span></h6>
+  <script>
+    var server_date = Date.parse("{% now 'Y-m-d' %}T{% now 'H:i:s' %}Z");
+    var now = Date.now();
+    var diff_time_in_sec = Math.abs(server_date - now);
+    var diff_days = Math.ceil(diff_time_in_sec / (1000 * 60 * 60 * 24));
+
+    var date = new Date(diff_days < 1 ? now : server_date);
+    document.getElementById('year').textContent = date.getFullYear();
+  </script>
 </footer>

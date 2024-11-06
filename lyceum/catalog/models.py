@@ -3,9 +3,9 @@ import random
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+import django.utils.safestring
 import django.utils.timezone
 from tinymce.models import HTMLField
-import django.utils.safestring
 
 import catalog.validators
 import core.models
@@ -46,7 +46,7 @@ class ItemBusinessLogicManager(models.Manager):
         convinient_ids = list(
             self.published()
             .filter(
-                created__gt=one_week_ago
+                created__gt=one_week_ago,
             )
             .values_list("id", flat=True),
         )
@@ -67,11 +67,9 @@ class ItemBusinessLogicManager(models.Manager):
         )
 
     def unverified(self):
-        return (self.published()
-            .filter(
-                created__gte=models.F("updated") - datetime.timedelta(seconds=1),
-                created__lte=models.F("updated") + datetime.timedelta(seconds=1),
-            )
+        return self.published().filter(
+            created__gte=models.F("updated") - datetime.timedelta(seconds=1),
+            created__lte=models.F("updated") + datetime.timedelta(seconds=1),
         )
 
 
@@ -122,7 +120,7 @@ class Item(core.models.CoreModel):
 
     def __str__(self):
         return self.name
-    
+
     def image_tmb(self):
         if self.main_image.image:
             return django.utils.safestring.mark_safe(
