@@ -1,5 +1,9 @@
+import datetime
+from unittest import mock
+
 from django.test import Client, TestCase
 from django.urls import reverse
+from parameterized import parameterized
 
 import catalog.models
 
@@ -275,3 +279,101 @@ class SingleItemTest(TestCase):
 
         for tag in item.tags.all():
             self.assertNotIn("slug", tag.__dict__)
+
+
+class NewFridayUnverifiedItemListTest(TestCase):
+    def setUp(self):
+        self.test_category = catalog.models.Category(
+            name="test_category_1",
+            slug="category_1",
+        )
+        self.test_category.save()
+
+        self.create_item_on_friday()
+        self.create_item_2024_11_06()
+
+    @mock.patch(
+        "django.utils.timezone.now",
+        mock.Mock(
+            return_value=datetime.datetime(
+                2024,
+                10,
+                25,
+                tzinfo=datetime.timezone.utc,
+            ),
+        ),
+    )
+    def create_item_on_friday(self):
+        self.item_friday = catalog.models.Item(
+            name="test item friday",
+            text="роскошно",
+            category=self.test_category,
+        )
+        self.item_friday.save()
+
+    @mock.patch(
+        "django.utils.timezone.now",
+        mock.Mock(
+            return_value=datetime.datetime(
+                2024,
+                11,
+                6,
+                tzinfo=datetime.timezone.utc,
+            ),
+        ),
+    )
+    def create_item_2024_11_06(self):
+        self.item_2024_11_06 = catalog.models.Item(
+            name="test item new",
+            text="роскошно",
+            category=self.test_category,
+        )
+        self.item_2024_11_06.save()
+
+    @parameterized.expand(
+        [
+            ("catalog:item_list_new",),
+            ("catalog:item_list_friday",),
+            ("catalog:item_list_unverified",),
+        ],
+    )
+    def test_status_code(self, url_name):
+        response = Client().get(reverse(url_name))
+        self.assertEqual(response.status_code, 200)
+
+    @parameterized.expand(
+        [
+            ("catalog:item_list_new",),
+            ("catalog:item_list_friday",),
+            ("catalog:item_list_unverified",),
+        ],
+    )
+    def test_items_in_context(self, url_name):
+        response = Client().get(reverse(url_name))
+        self.assertIn("items", response.context)
+
+    @mock.patch(
+        "django.utils.timezone.now",
+        mock.Mock(
+            return_value=datetime.datetime(
+                2024,
+                11,
+                7,
+                tzinfo=datetime.timezone.utc,
+            ),
+        ),
+    )
+    def test_new_len(self):
+        response = Client().get(reverse("catalog:item_list_new"))
+        items = response.context["items"]
+        self.assertEqual(len(items), 1)
+
+    def test_friday_len(self):
+        response = Client().get(reverse("catalog:item_list_friday"))
+        items = response.context["items"]
+        self.assertEqual(len(items), 1)
+
+    def test_unverified_len(self):
+        response = Client().get(reverse("catalog:item_list_unverified"))
+        items = response.context["items"]
+        self.assertEqual(len(items), 2)

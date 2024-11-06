@@ -81,6 +81,9 @@ class ImageModel(models.Model):
     def get_image_x300(self):
         return get_thumbnail(self.image, "x300", quality=51)
 
+    def get_image_300x300(self):
+        return get_thumbnail(self.image, "300x300", quality=51)
+
     def get_image_x50(self):
         return get_thumbnail(self.image, "x50", quality=51)
 
