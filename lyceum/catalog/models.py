@@ -123,8 +123,9 @@ class Item(core.models.CoreModel):
 
     def image_tmb(self):
         if self.main_image.image:
+            tmb_url = self.main_image.get_image_x50().url
             return django.utils.safestring.mark_safe(
-                f"<img src='{self.main_image.get_image_x50().url}' width='50'>",
+                f"<img src='{tmb_url}' width='50'>",
             )
         return "Нет изображения"
 
