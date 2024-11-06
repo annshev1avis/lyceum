@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         (
             "catalog",
-            "0001_squashed_0013_alter_category_id_alter_item_id_alter_tag_id",
+            "0001_squashed_0011_mainimage_usualimage_remove_item_main_image_and_more",
         ),
     ]
 
