@@ -1,4 +1,6 @@
 import django.test
+from django.urls import reverse
+
 
 __all__ = ["ReverseWordsMiddlewareTest"]
 
@@ -38,3 +40,28 @@ class ReverseWordsMiddlewareTest(django.test.TestCase):
             results.append(response.content.decode())
 
         self.assertEqual(results.count("Я кинйач"), 1)
+
+    def test_crazy(self):
+        form_data = {
+            "text": (
+                "Привет, этo почтi-почти Pуcский текст@, просто≈ "
+                "Как-то со спецü символами:) ¡сорри∑! Hу ещё раз ¡сорри! "
+                "Ёжика не видели?"
+            ),
+        }
+
+        results = []
+        for _ in range(10):
+            response = django.test.Client().post(
+                reverse("homepage:echo_submit"),
+                data=form_data,
+            )
+            results.append(response.content)
+
+        expected_text = (
+            "тевирП, этo почтi-почти Pуcский тскет@, "
+            "отсорп≈ каК-от ос спецü ималовмис:) ¡иррос∑! "
+            "Hу ёще зар ¡иррос! акижЁ ен иледив?"
+        ).encode("utf-8")
+
+        self.assertIn(expected_text, results)

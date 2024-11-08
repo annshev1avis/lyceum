@@ -6,14 +6,30 @@ __all__ = ["ReverseWordsMiddleware", "reverse_rus_word"]
 
 
 REVERSE_TIME = 10
-ONLY_RUSSIAN_REGEX = re.compile(r"^\s*[\W_]*[А-Яа-яЁё]+[\W_]*\s*$")
+
+RUS_LETTERS = re.compile(r"[а-яА-ЯёЁ]")
+PUNCTUATION_MARKS = re.compile(r"\W")
 
 
 def reverse_rus_word(word):
     if word == "":
         return word
 
-    return word[::-1] if ONLY_RUSSIAN_REGEX.match(word) else word
+    result = []
+    cur_word = []
+
+    for letter in word:
+        if RUS_LETTERS.match(letter):
+            cur_word.append(letter)
+        elif PUNCTUATION_MARKS.match(letter):
+            result.append("".join(cur_word[::-1]))
+            result.append(letter)
+            cur_word = []
+        else:
+            return word
+
+    result.append("".join(cur_word[::-1]))
+    return "".join(result)
 
 
 class ReverseWordsMiddleware:
