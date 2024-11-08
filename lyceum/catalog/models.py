@@ -15,19 +15,21 @@ __all__ = ["Category", "GalleryImage", "Item", "MainImage", "Tag"]
 
 class ItemBusinessLogicManager(models.Manager):
     def published(self):
-        return (
-            self.get_queryset()
-            .select_related("category")
-            .filter(is_published=True, category__is_published=True)
-            .prefetch_related(
-                models.Prefetch(
-                    "tags",
-                    queryset=catalog.models.Tag.active.all().only("name"),
-                ),
-            )
-            .order_by("category__name", "name")
-            .only("name", "category__name", "text", "tags")
+        queryset = self.get_queryset()
+        queryset = queryset.select_related("category")
+        queryset = queryset.filter(
+            is_published=True,
+            category__is_published=True,
         )
+        queryset = queryset.prefetch_related(
+            models.Prefetch(
+                "tags",
+                queryset=catalog.models.Tag.active.all().only("name"),
+            ),
+        )
+        queryset = queryset.order_by("category__name", "name")
+
+        return queryset.only("name", "category__name", "text", "tags")
 
     def on_main(self):
         return (
@@ -127,6 +129,7 @@ class Item(core.models.CoreModel):
             return django.utils.safestring.mark_safe(
                 f"<img src='{tmb_url}' width='50'>",
             )
+
         return "Нет изображения"
 
     image_tmb.short_description = "превью"

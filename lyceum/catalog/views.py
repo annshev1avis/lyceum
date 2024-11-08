@@ -45,31 +45,34 @@ def item_list_unverified(request):
 
 def item_detail(request, detail):
     template = "catalog/item.html"
+
+    queryset = catalog.models.Item.active
+    queryset = queryset.filter(category__is_published=True)
+    queryset = queryset.select_related("category")
+    queryset = queryset.select_related("main_image")
+    queryset = queryset.prefetch_related("images")
+    queryset = queryset.prefetch_related(
+        Prefetch(
+            "tags",
+            queryset=catalog.models.Tag.active.all().only("name"),
+        ),
+    )
+    queryset = queryset.only(
+        "name",
+        "category__name",
+        "text",
+        "tags",
+        "main_image",
+        "images",
+    )
+
     context = {
         "item": get_object_or_404(
-            (
-                catalog.models.Item.active.filter(category__is_published=True)
-                .select_related("category")
-                .select_related("main_image")
-                .prefetch_related("images")
-                .prefetch_related(
-                    Prefetch(
-                        "tags",
-                        queryset=catalog.models.Tag.active.all().only("name"),
-                    ),
-                )
-                .only(
-                    "name",
-                    "category__name",
-                    "text",
-                    "tags",
-                    "main_image",
-                    "images",
-                )
-            ),
+            queryset,
             pk=detail,
         ),
     }
+
     return render(request, template, context)
 
 

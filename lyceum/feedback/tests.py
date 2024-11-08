@@ -57,3 +57,22 @@ class FormTests(TestCase):
             follow=True,
         )
         self.assertRedirects(response, reverse("feedback:feedback"))
+
+    def test_form_name_is_not_requered(self):
+        form = feedback.forms.FeedbackForm(
+            {
+                "text": "test_text",
+                "mail": "test@email.com",
+            },
+        )
+        self.assertFormError(form, "name", [])
+
+    def test_form_validate_email(self):
+        form = feedback.forms.FeedbackForm(
+            {
+                "name": "test_name",
+                "text": "test_text",
+                "mail": "bad_email",
+            },
+        )
+        self.assertFormError(form, "mail", "Enter a valid email address.")

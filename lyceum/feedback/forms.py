@@ -14,9 +14,4 @@ class FeedbackForm(forms.ModelForm):
 
     class Meta:
         model = Feedback
-        fields = [
-            "name",
-            "text",
-            "mail",
-        ]
-        # TODO: сделать красивое отображение полей формы
+        exclude = ["created_on"]

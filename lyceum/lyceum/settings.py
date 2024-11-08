@@ -149,7 +149,7 @@ MEDIA_URL = "/media/"
 
 
 # для отправки электронной почты
-DJANGO_MAIL = os.getenv("DJANGO_MAIL")
+DJANGO_MAIL = os.getenv("DJANGO_MAIL", "does_not_exist@mail.ru")
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "send_mail/"

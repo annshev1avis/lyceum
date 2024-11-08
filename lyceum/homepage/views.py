@@ -27,6 +27,9 @@ def teapot(request):
 
 
 def echo_form(request):
+    if request.method != "GET":
+        return HttpResponseNotAllowed(["GET"])
+
     context = {"form": homepage.forms.EchoForm()}
     return render(request, "homepage/echo_form.html", context)
 
@@ -35,8 +38,7 @@ def echo_submit(request):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
 
-    text = request.POST["text"]
     return HttpResponse(
-        text,
-        content_type="text/plain",
+        request.POST["text"],
+        content_type="text/plain; charset=utf-8",
     )

@@ -8,6 +8,8 @@ class Feedback(models.Model):
     name = models.CharField(
         "Название",
         max_length=100,
+        null=True,
+        blank=True,
         help_text="О чем ваш фидбек",
     )
     text = models.TextField(

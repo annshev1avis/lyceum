@@ -12,7 +12,7 @@ __all__ = []
 
 def feedback(request):
     if request.method == "POST":
-        form = FeedbackForm(request.POST)
+        form = FeedbackForm(request.POST or None)
         if form.is_valid():
             send_mail(
                 subject=form.cleaned_data["name"],

@@ -10,6 +10,7 @@ RUSSIAN_LETTERS = "абвгдеёжзийклмнопрстуфхцчшщъыь�
 def reverse_rus_word(word):
     if word == "":
         return word
+
     return word[::-1] if word[0].lower() in RUSSIAN_LETTERS else word
 
 
@@ -28,8 +29,10 @@ class ReverseWordsMiddleware:
             django.conf.settings.ALLOW_REVERSE
             or django.conf.settings.ALLOW_REVERSE is None
         ) and ReverseWordsMiddleware.count % REVERSE_TIME == 0:
-            words = response.content.decode().split()
-            response.content = " ".join(map(reverse_rus_word, words))
+            words = response.content.decode("utf-8").split()
+            response.content = " ".join(map(reverse_rus_word, words)).encode(
+                "utf-8",
+            )
             ReverseWordsMiddleware.count = 0
 
         return response

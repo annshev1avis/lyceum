@@ -7,9 +7,13 @@ django-dump-load-utf8==0.0.4
 django-tinymce==4.1.0
 flake8==7.1.1
 flake8-absolute-import==1.0.0.2
+flake8-bugbear==24.10.31
 flake8-builtins==2.5.0
+flake8-clean-block==0.1.2
 flake8-commas==4.0.0
 flake8-dunder-all==0.4.1
+flake8-expression-complexity==0.0.11
+flake8-future-annotations==1.1.0
 flake8-import-order==0.18.2
 flake8-quotes==3.4.0
 flake8-return==1.2.0
