@@ -15,7 +15,8 @@ venv_name - имя виртуального окружения
 Для всех ОС: ```pip3 install -r requirements/prod.txt```  
 Примечание: в директории requirements хранянтся 3 файла с разным набором зависимостей (prod.txt - основные, test.txt - для тестов и dev.txt - для разработки). В данном случае нам нужен prod.txt
 #### 5. Создать файл lyceum/lyceum/.env с переменными окружения и подставить свои значения переменных  
-```DJANGO_SECRET_KEY="your_secret_key"  DJANDO_DEBUG=True  DJANGO_ALLOWED_HOSTS="127.0.0.1 128.0.0.1"```
+```DJANGO_SECRET_KEY="your_secret_key" DJANDO_DEBUG=True  DJANGO_ALLOWED_HOSTS="127.0.0.1 128.0.0.1"```  
+```DJANGO_MAIL="email"``` - адрес электронной почты, с которой будут отправляться письма пользователям  
 #### 6. Находясь в корневой директории (внешняя lyceum), выполнить следующую команду
 Для linux/macOS: ```python manage.py runserver```  
 Для Windows: ```py manage.py runserver```

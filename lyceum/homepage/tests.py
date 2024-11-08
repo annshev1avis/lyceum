@@ -130,6 +130,8 @@ class HomepageTests(django.test.TestCase):
             for tag in item.tags.all():
                 self.assertNotIn("slug", tag.__dict__)
 
+
+class TeapotTests(django.test.TestCase):
     def test_teapot(self):
         responses_content = []
 
@@ -139,3 +141,34 @@ class HomepageTests(django.test.TestCase):
             responses_content.append(str(response.content, encoding="utf-8"))
 
         self.assertIn("Я чайник", responses_content)
+
+
+class EchoTests(django.test.TestCase):
+    def test_form_in_context(self):
+        response = django.test.Client().get(reverse("homepage:echo_form"))
+        self.assertIn("form", response.context)
+
+    def test_submit_returns_plain_text(self):
+        form_data = {"text": "sample_text"}
+        response = django.test.Client().post(
+            reverse("homepage:echo_submit"),
+            form_data,
+        )
+        self.assertEqual("text/plain", response.headers["Content-Type"])
+
+    def test_submit_returns_same_text(self):
+        sample_text = "sample_text"
+
+        form_data = {"text": sample_text}
+        response = django.test.Client().post(
+            reverse("homepage:echo_submit"),
+            form_data,
+        )
+        self.assertEqual(sample_text.encode(), response.content)
+
+    def test_submit_get_is_unavailable(self):
+        response = django.test.Client().get(reverse("homepage:echo_submit"))
+        self.assertEqual(
+            response.status_code,
+            http.HTTPStatus.METHOD_NOT_ALLOWED,
+        )

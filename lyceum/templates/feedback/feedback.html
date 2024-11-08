@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if messages %}
+  <div class="d-flex flex-column col col-lg-6">
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+          </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+  <form action="{% url "feedback:feedback" %}" method="POST" class="d-flex flex-column col col-lg-6">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+  </form>
+{% endblock %}

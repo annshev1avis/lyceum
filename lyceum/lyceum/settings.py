@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "core.apps.CoreConfig",
     "download.apps.DownloadConfig",
+    "feedback.apps.FeedbackConfig",
     "sorl.thumbnail",
     "tinymce",
     # для dumpdata в utf-8 на windows
@@ -145,3 +146,10 @@ DEFAULT_CHARSET = "utf-8"
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
+
+
+# для отправки электронной почты
+DJANGO_MAIL = os.getenv("DJANGO_MAIL")
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "send_mail/"

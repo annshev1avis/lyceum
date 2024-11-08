@@ -192,3 +192,6 @@ Temporary Items
 
 # media
 */media/
+
+# email logs
+*/send_mail/
