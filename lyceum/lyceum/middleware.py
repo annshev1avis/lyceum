@@ -7,29 +7,21 @@ __all__ = ["ReverseWordsMiddleware", "reverse_rus_word"]
 
 REVERSE_TIME = 10
 
-RUS_LETTERS = re.compile(r"[а-яА-ЯёЁ]")
-PUNCTUATION_MARKS = re.compile(r"\W")
+RUS_WORD = re.compile(r"\b[а-яА-ЯёЁ]+\b")
 
 
 def reverse_rus_word(word):
     if word == "":
         return word
 
-    result = []
-    cur_word = []
+    match = RUS_WORD.search(word)
 
-    for letter in word:
-        if RUS_LETTERS.match(letter):
-            cur_word.append(letter)
-        elif PUNCTUATION_MARKS.match(letter):
-            result.append("".join(cur_word[::-1]))
-            result.append(letter)
-            cur_word = []
-        else:
-            return word
+    if match:
+        return (
+            word[: match.start()] + match.group()[::-1] + word[match.end() :]
+        )
 
-    result.append("".join(cur_word[::-1]))
-    return "".join(result)
+    return word
 
 
 class ReverseWordsMiddleware:
@@ -44,7 +36,7 @@ class ReverseWordsMiddleware:
             return False
 
         cls.count += 1
-        if cls.count == 10:
+        if cls.count == REVERSE_TIME:
             cls.count = 0
             return True
 

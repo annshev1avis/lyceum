@@ -59,9 +59,9 @@ class ReverseWordsMiddlewareTest(django.test.TestCase):
             results.append(response.content)
 
         expected_text = (
-            "тевирП, этo почтi-почти Pуcский тскет@, "
-            "отсорп≈ каК-от ос спецü ималовмис:) ¡иррос∑! "
-            "Hу ёще зар ¡иррос! акижЁ ен иледив?"
+            "тевирП, этo почтi-итчоп Pуcский тскет@, "
+            "отсорп≈ каК-то ос спецü ималовмис:) ¡иррос∑!"
+            " Hу ёще зар ¡иррос! акижЁ ен иледив?"
         ).encode("utf-8")
 
         self.assertIn(expected_text, results)
