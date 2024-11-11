@@ -14,4 +14,4 @@ class FeedbackForm(forms.ModelForm):
 
     class Meta:
         model = Feedback
-        exclude = ["created_on"]
+        exclude = ["status", "created_on"]

@@ -15,11 +15,12 @@ def feedback(request):
         form = FeedbackForm(request.POST or None)
         if form.is_valid():
             send_mail(
-                subject=form.cleaned_data["name"],
+                subject="Racoon's answer",
                 message=form.cleaned_data["text"],
                 from_email=django.conf.settings.DJANGO_MAIL,
                 recipient_list=[form.cleaned_data["mail"]],
             )
+            form.save()
 
             messages.success(request, "Форма успешно отправлена! :)")
             return redirect(reverse("feedback:feedback"))

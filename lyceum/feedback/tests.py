@@ -3,6 +3,7 @@ from django.urls import reverse
 from parameterized import parameterized
 
 import feedback.forms
+import feedback.models
 
 
 __all__ = []
@@ -76,3 +77,31 @@ class FormTests(TestCase):
             },
         )
         self.assertFormError(form, "mail", "Enter a valid email address.")
+
+    def test_form_create_db_record(self):
+        initial_amount = feedback.models.Feedback.objects.count()
+        form_data = {
+            "name": "test_name",
+            "text": "test_text",
+            "mail": "ok@email.ru",
+        }
+        Client().post(reverse("feedback:feedback"), data=form_data)
+
+        self.assertEqual(
+            initial_amount + 1,
+            feedback.models.Feedback.objects.count(),
+        )
+
+    def test_form_not_create_db_record_invalid_data(self):
+        initial_amount = feedback.models.Feedback.objects.count()
+        form_data = {
+            "name": "test_name",
+            "text": "test_text",
+            "mail": "bad_email",
+        }
+        Client().post(reverse("feedback:feedback"), data=form_data)
+
+        self.assertEqual(
+            initial_amount,
+            feedback.models.Feedback.objects.count(),
+        )

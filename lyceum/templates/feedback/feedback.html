@@ -12,7 +12,7 @@
   {% endif %}
   <form action="{% url "feedback:feedback" %}" method="POST" class="d-flex flex-column col col-lg-6">
     {% csrf_token %}
-    {{ form }}
+    {% include "includes/form.html" %}
     <button type="submit" class="btn btn-primary">Отправить</button>
   </form>
 {% endblock %}
