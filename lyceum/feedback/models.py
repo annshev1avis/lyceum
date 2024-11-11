@@ -6,11 +6,11 @@ __all__ = []
 
 class Feedback(models.Model):
     name = models.CharField(
-        "Название",
+        "Имя",
         max_length=100,
         null=True,
         blank=True,
-        help_text="О чем ваш фидбек",
+        help_text="Введите ваше имя",
     )
     text = models.TextField(
         "Текст фидбека",

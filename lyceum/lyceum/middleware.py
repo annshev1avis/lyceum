@@ -2,26 +2,12 @@ import re
 
 import django.conf
 
-__all__ = ["ReverseWordsMiddleware", "reverse_rus_word"]
+__all__ = ["ReverseWordsMiddleware"]
 
 
 REVERSE_TIME = 10
 
-RUS_WORD = re.compile(r"\b[а-яА-ЯёЁ]+\b")
-
-
-def reverse_rus_word(word):
-    if word == "":
-        return word
-
-    match = RUS_WORD.search(word)
-
-    if match:
-        return (
-            word[: match.start()] + match.group()[::-1] + word[match.end() :]
-        )
-
-    return word
+RUSSIAN_WORD = re.compile(r"\b[а-яА-ЯёЁ]+\b")
 
 
 class ReverseWordsMiddleware:
@@ -48,9 +34,12 @@ class ReverseWordsMiddleware:
         if not self.check_should_reverse():
             return response
 
-        words = response.content.decode("utf-8").split()
-        response.content = " ".join(map(reverse_rus_word, words)).encode(
-            "utf-8",
-        )
+        response.content = self.reverse_russian_words(
+            response.content.decode(),
+        ).encode()
 
         return response
+
+    @staticmethod
+    def reverse_russian_words(str_content):
+        return RUSSIAN_WORD.sub(lambda m: m.group()[::-1], str_content)

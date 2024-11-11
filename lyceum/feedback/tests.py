@@ -14,7 +14,7 @@ class FormTests(TestCase):
 
     @parameterized.expand(
         [
-            ("name", "Название"),
+            ("name", "Имя"),
             ("text", "Текст фидбека"),
             ("mail", "Электронная почта"),
         ],
@@ -25,7 +25,7 @@ class FormTests(TestCase):
 
     @parameterized.expand(
         [
-            ("name", "О чем ваш фидбек"),
+            ("name", "Введите ваше имя"),
             ("text", "Поделитесь впечатлениями"),
             ("mail", "Введите электронную почту"),
         ],
