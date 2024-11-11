@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 
 
@@ -7,7 +7,7 @@ __all__ = []
 
 class StatusLog(models.Model):
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
     timestamp = models.DateTimeField(auto_now_add=True)
