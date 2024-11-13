@@ -6,13 +6,29 @@ import feedback.models
 __all__ = []
 
 
+class FeedbackAuthorInline(admin.TabularInline):
+    model = feedback.models.FeedbackAuthor
+    fields = [
+        "name",
+        "mail",
+    ]
+    can_delete = False
+
+
+class FeedbackFilesInline(admin.TabularInline):
+    model = feedback.models.FeedbackFile
+    fields = ["file"]
+
+
 @admin.register(feedback.models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    readonly_fields = [
-        "name",
+    list_display = [
         "text",
-        "created_on",
-        "mail",
+        "status",
+    ]
+    inlines = [
+        FeedbackAuthorInline,
+        FeedbackFilesInline,
     ]
 
     def save_model(self, request, obj, form, change):

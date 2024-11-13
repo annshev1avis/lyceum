@@ -6,5 +6,5 @@ import feedback.views
 app_name = "feedback"
 
 urlpatterns = [
-    path("", feedback.views.feedback, name="feedback"),
+    path("", feedback.views.handle_feedback_form, name="feedback"),
 ]

@@ -1,3 +1,5 @@
+import time
+
 from django.conf import settings
 from django.db import models
 
@@ -28,18 +30,11 @@ class Feedback(models.Model):
         ANS = "ans", "Ответ дан"
 
     status = models.CharField(
-        "статус",
+        "Статус",
         max_length=20,
         choices=Status.choices,
         default=Status.NEW,
         help_text="Текущий этап обработки фидбека",
-    )
-    name = models.CharField(
-        "Имя",
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="Введите ваше имя",
     )
     text = models.TextField(
         "Текст фидбека",
@@ -48,10 +43,6 @@ class Feedback(models.Model):
     created_on = models.DateTimeField(
         auto_now_add=True,
     )
-    mail = models.EmailField(
-        "Электронная почта",
-        help_text="Введите электронную почту",
-    )
 
     def __str__(self):
         return self.text if len(self.text) < 35 else f"{self.text[:35]}..."
@@ -59,3 +50,46 @@ class Feedback(models.Model):
     class Meta:
         verbose_name = "фидбек"
         verbose_name_plural = "фидбеки"
+
+
+class FeedbackAuthor(models.Model):
+    name = models.CharField(
+        "Имя",
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Введите ваше имя",
+    )
+    mail = models.EmailField(
+        "Электронная почта",
+        help_text="Введите электронную почту",
+    )
+    feedback = models.OneToOneField(
+        Feedback,
+        on_delete=models.CASCADE,
+        related_name="author",
+    )
+
+    class Meta:
+        verbose_name = "автор"
+        verbose_name_plural = "авторы"
+
+
+class FeedbackFile(models.Model):
+    def get_path(self, filename):
+        return f"uploads/{12}/{time.time()}_{filename}"
+
+    file = models.FileField(
+        "Файл",
+        upload_to=get_path,
+        blank=True,
+    )
+    feedback = models.ForeignKey(
+        Feedback,
+        on_delete=models.CASCADE,
+        related_name="files",
+    )
+
+    class Meta:
+        verbose_name = "файл"
+        verbose_name_plural = "файлы"
