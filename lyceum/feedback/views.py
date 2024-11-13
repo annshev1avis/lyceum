@@ -14,7 +14,7 @@ __all__ = []
 def handle_feedback_form(request):
     author_form = FeedbackAuthorForm(request.POST or None)
     content_form = FeedbackForm(request.POST or None)
-    files_form = FeedbackFilesForm((request.POST, request.FILES) or None)
+    files_form = FeedbackFilesForm(request.POST or None)
 
     forms = [author_form, content_form, files_form]
 
