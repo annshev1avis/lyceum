@@ -21,9 +21,7 @@ def handle_feedback_form(request):
     if request.method == "POST":
         if all(form.is_valid() for form in forms):
 
-            feedback = Feedback.objects.create(
-                **content_form.cleaned_data,
-            )
+            feedback = content_form.save()
 
             FeedbackAuthor.objects.create(
                 **author_form.cleaned_data,
