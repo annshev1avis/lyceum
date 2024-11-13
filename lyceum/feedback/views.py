@@ -13,17 +13,16 @@ __all__ = []
 
 def handle_feedback_form(request):
     author_form = FeedbackAuthorForm(request.POST or None)
-    feedback_form = FeedbackForm(request.POST or None)
+    content_form = FeedbackForm(request.POST or None)
     files_form = FeedbackFilesForm((request.POST, request.FILES) or None)
 
+    forms = [author_form, content_form, files_form]
+
     if request.method == "POST":
-        if all(
-            form.is_valid()
-            for form in (author_form, feedback_form, files_form)
-        ):
+        if all(form.is_valid() for form in forms):
 
             feedback = Feedback.objects.create(
-                **feedback_form.cleaned_data,
+                **content_form.cleaned_data,
             )
 
             FeedbackAuthor.objects.create(
@@ -49,9 +48,9 @@ def handle_feedback_form(request):
 
     context = {
         "title": "Обратная связь",
-        "author": author_form,
-        "content": feedback_form,
-        "files": files_form,
+        "author_form": author_form,
+        "content_form": content_form,
+        "files_form": files_form,
     }
 
     return render(request, "feedback/feedback.html", context)

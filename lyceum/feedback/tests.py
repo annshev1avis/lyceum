@@ -96,9 +96,9 @@ class FeedbackViewTests(TestCase):
         response = Client().get(reverse("feedback:feedback"))
 
         forms = [
-            "author",
-            "content",
-            "files",
+            "author_form",
+            "content_form",
+            "files_form",
         ]
         for form in forms:
             self.assertIn(form, response.context)
@@ -107,9 +107,9 @@ class FeedbackViewTests(TestCase):
         response = Client().get(reverse("feedback:feedback"))
 
         form_type_mapping = {
-            "author": feedback.forms.FeedbackAuthorForm,
-            "content": feedback.forms.FeedbackForm,
-            "files": feedback.forms.FeedbackFilesForm,
+            "author_form": feedback.forms.FeedbackAuthorForm,
+            "content_form": feedback.forms.FeedbackForm,
+            "files_form": feedback.forms.FeedbackFilesForm,
         }
 
         for form, form_type in form_type_mapping.items():
