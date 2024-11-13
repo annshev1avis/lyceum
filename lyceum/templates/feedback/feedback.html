@@ -11,15 +11,15 @@
   </div>
   {% endif %}
   <form action="{% url "feedback:feedback" %}" method="POST" class="d-flex flex-column col col-lg-6" enctype="multipart/form-data">
-    {% with form=author_form %}
+    {% with form=author %}
       {% csrf_token %}
       {% include "includes/form.html" %}
     {% endwith %}
-    {% with form=feedback_form %}
+    {% with form=content %}
       {% csrf_token %}
       {% include "includes/form.html" %}
     {% endwith %}
-    {% with form=files_form %}
+    {% with form=files %}
       {% csrf_token %}
       {% include "includes/form.html" %}
     {% endwith %}

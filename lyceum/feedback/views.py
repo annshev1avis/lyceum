@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from feedback.forms import FeedbackAuthorForm, FeedbackFilesForm, FeedbackForm
-from feedback.models import FeedbackFile
+from feedback.models import Feedback, FeedbackAuthor, FeedbackFile
 
 
 __all__ = []
@@ -22,11 +22,14 @@ def handle_feedback_form(request):
             for form in (author_form, feedback_form, files_form)
         ):
 
-            feedback = feedback_form.save()
+            feedback = Feedback.objects.create(
+                **feedback_form.cleaned_data,
+            )
 
-            author = author_form.save(commit=False)
-            author.feedback = feedback
-            author.save()
+            FeedbackAuthor.objects.create(
+                **author_form.cleaned_data,
+                feedback=feedback,
+            )
 
             for file in request.FILES.getlist("file"):
                 FeedbackFile.objects.create(
@@ -46,9 +49,9 @@ def handle_feedback_form(request):
 
     context = {
         "title": "Обратная связь",
-        "author_form": author_form,
-        "feedback_form": feedback_form,
-        "files_form": files_form,
+        "author": author_form,
+        "content": feedback_form,
+        "files": files_form,
     }
 
     return render(request, "feedback/feedback.html", context)

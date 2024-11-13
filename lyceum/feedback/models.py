@@ -77,7 +77,7 @@ class FeedbackAuthor(models.Model):
 
 class FeedbackFile(models.Model):
     def get_path(self, filename):
-        return f"uploads/{12}/{time.time()}_{filename}"
+        return f"uploads/{self.feedback_id}/{time.time()}_{filename}"
 
     file = models.FileField(
         "Файл",
