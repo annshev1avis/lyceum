@@ -2,11 +2,11 @@
 # lyceum- учебный проект по изучению Django  
 ## Как запустить проект в dev-режиме:  
 #### 0. Склонировать репозиторий  
-```git clone https://gitlab.crja72.ru/django/2024/autumn/course/students/284664-annshevchenkooo-course-1187```
+```git clone https://github.com/annshev1avis/lyceum```
 #### 1. Перейти в корневую папку проекта  
 #### 2. Создать виртуальное окружение:  
-Для linux/macOS: ```python3 -m venv venv_name```  
-Для Windows: ```py -m venv venv_name```  
+Для linux/macOS: ```python3 -m venv venv```  
+Для Windows: ```py -m venv venv```  
 venv_name - имя виртуального окружения  
 #### 3. Активировать виртуальное окружение:  
 Для linux/macOS: ```source venv/bin/activate```  
